@@ -6,3 +6,18 @@ BRAINSTORMING TIME
 
 TIMELINE
 - skeleton -> notifications -> recurring -> ux/ui -> widget
+
+
+FEATURES:
+- recurring tasks
+- notifications
+- reminder notification 
+- tags <- uni/school , work, social, study etc. 
+- widgets
+- custom background (?)
+- cutesy animation for when you finish a task 
+- animation for finish a task 
+- quirky notifications
+- sharing tasks/lists with other people (?) <- making accounts 
+- TO DO VIEW: day view, weekly, monthly etc <- calendar :) 
+- over due tasks <- make it in a new list + red?? some animation as well + notification
