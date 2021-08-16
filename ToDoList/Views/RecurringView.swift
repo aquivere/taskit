@@ -1,0 +1,103 @@
+//
+//  RecurringView.swift
+//  ToDoList
+//
+//  Created by Borborick Zhu on 12/7/21.
+//
+
+import SwiftUI
+import Foundation
+
+struct RecurringView: View {
+    
+    @Binding var recurrenceTitle: String
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State var options = [
+        "Do Not Repeat",
+        "Every Day",
+        "Every Week",
+        "Every Fortnight",
+        "Every Month",
+    ]
+    
+    var body: some View {
+        List {
+            Button(action: {
+                recurrenceTitle = "Do not Repeat"
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Do not Repeat".uppercased())
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .frame(height:40)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(0)
+            })
+            Button(action: {
+                recurrenceTitle = "Every Day"
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Repeat Every Day".uppercased())
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .frame(height:40)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(0)
+            })
+            Button(action: {
+                recurrenceTitle = "Every Week"
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Repeat Every Week".uppercased())
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .frame(height:40)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(0)
+            })
+            Button(action: {
+                recurrenceTitle = "Every Fortnight"
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Repeat Every Fortnight".uppercased())
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .frame(height:40)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(0)
+            })
+            Button(action: {
+                recurrenceTitle = "Every Month"
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Repeat Every Month".uppercased())
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .frame(height:40)
+                    .frame(maxWidth: .infinity)
+                    .cornerRadius(0)
+            })
+        }.padding(14)
+        .listStyle(PlainListStyle())
+        .navigationTitle("Recurrence")
+    }
+}
+
+class recurrenceData: ObservableObject {
+    @Published var title: String
+    @Published var time: Int
+    
+    init(title: String, time: Int) {
+        self.title = title
+        self.time = time
+    }
+}
+    
+// TO DO - COMPLETELY CHANGE THE VIEW INTO A STACK OF BUTTONS THAT UPLOAD PASS INFORMATION THAT ULTIMATELY GETS SAVED IN THE MODEL.
+
+// WATCH VIDEO ON HOW TO CREATE TIMER APP.
+
+
+
