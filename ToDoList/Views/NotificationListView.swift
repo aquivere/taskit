@@ -9,6 +9,10 @@ import SwiftUI
 
 struct NotificationListView: View {
     @StateObject private var notificationManager = NotificationManager()
+    @State private var isCreatePresented = false
+    
+        // need to somehow link this to addview
+    
     var body: some View {
         List(notificationManager.notifications, id: \.identifier) { notifications in
             Text(notifications.content.title)
@@ -38,3 +42,4 @@ struct NotificationListView_Previews: PreviewProvider {
         NotificationListView()
     }
 }
+
