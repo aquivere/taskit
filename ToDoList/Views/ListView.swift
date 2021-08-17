@@ -17,6 +17,7 @@ struct ListView: View {
         ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date())
     ]
     
+    @State private var hasTimeElapsed = false
     var body: some View {
         ZStack {
             if listViewModel.items.isEmpty {
@@ -28,8 +29,10 @@ struct ListView: View {
                     ForEach(listViewModel.items) { item in
                         ListRowView(item: item)
                             .onTapGesture {
-                                    listViewModel.updateItem(item: item)
-
+                                    
+                                listViewModel.updateItem(item: item)
+                                delayTimer()
+                                
                             }
                     }
                     .onDelete(perform: listViewModel.deleteItem)
@@ -46,6 +49,17 @@ struct ListView: View {
                 NavigationLink ("Add", destination:
                                     AddView())
         )
+    
+        }
+    
+    func delayTimer() {
+    //Delay of 7.5 seconds.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+            hasTimeElapsed = true
+        }
+    }
+    func deleteModel() {
+        
     }
     
 }
