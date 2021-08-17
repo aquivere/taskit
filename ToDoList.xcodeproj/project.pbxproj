@@ -90,7 +90,6 @@
 		EBF99A4126970F210083CDE5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5EE4F26C26CA78AD0018EC9B /* NotificationManager.swift */,
 				EBF99A4226970F360083CDE5 /* ListView.swift */,
 				EBF99A44269710810083CDE5 /* ListRowView.swift */,
 				EBF99A46269712CF0083CDE5 /* AddView.swift */,
@@ -112,6 +111,7 @@
 		EBF99A4C26980E780083CDE5 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				5EE4F26C26CA78AD0018EC9B /* NotificationManager.swift */,
 				EBF99A4D26980E830083CDE5 /* ListViewModel.swift */,
 			);
 			path = ViewModels;
