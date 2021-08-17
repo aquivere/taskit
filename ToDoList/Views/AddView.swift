@@ -37,7 +37,7 @@ struct AddView: View {
                 Spacer()
                 
                 VStack {
-                    DatePicker("Date", selection: $date, displayedComponents: [.hourAndMinute])
+                    DatePicker("Date", selection : $date)
                         .datePickerStyle(GraphicalDatePickerStyle())
                         .labelsHidden()
                         .frame(maxHeight: 400)
@@ -84,7 +84,7 @@ struct AddView: View {
             }.padding(14)
         }
         .onDisappear {
-            notificationManager.reloadLocalNotifications()
+           // notificationManager.reloadLocalNotifications()
         }
         
         
@@ -101,9 +101,11 @@ struct AddView: View {
             presentationMode.wrappedValue.dismiss()
         }
         // to create the notification
+        let emojis = "‼️😱⏳"
+        let text = textFieldText + emojis
         let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
         guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
-        notificationManager.createLocalNotification(title: textFieldText, hour: hour, minute: minute) { error in
+        notificationManager.createLocalNotification(title: text, hour: hour, minute: minute) { error in
         }
     }
     
@@ -124,7 +126,7 @@ struct AddView: View {
     }
     
     func dateToString (date: Date) -> String {
-       let df = DateFormatter()
+        let df = DateFormatter()
         df.dateFormat = "dd/MM/YYYY"
         let now = df.string(from: date)
         return now
