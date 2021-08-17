@@ -3,14 +3,14 @@
 //  ToDoList
 //
 //  Created by Borborick Zhu on 8/7/21.
-//
+//  Edited by Vivian Wang on 17/08/21
 
 import SwiftUI
 import Foundation
 
 
 struct AddView: View {
-    
+    @StateObject private var notificationManager = NotificationManager()
     @State var textFieldText: String = ""
     
     @State private var date = Date()
@@ -37,7 +37,7 @@ struct AddView: View {
                 Spacer()
                 
                 VStack {
-                    DatePicker("Date", selection: $date)
+                    DatePicker("Date", selection: $date, displayedComponents: [.hourAndMinute])
                         .datePickerStyle(GraphicalDatePickerStyle())
                         .labelsHidden()
                         .frame(maxHeight: 400)
@@ -71,7 +71,8 @@ struct AddView: View {
                 
                 Spacer()
                 
-                Button(action: saveButtonPressed, label: {
+                Button(action: saveButtonPressed,
+                       label: {
                     Text("Save".uppercased())
                         .foregroundColor(.white)
                         .font(.headline)
@@ -81,9 +82,12 @@ struct AddView: View {
                         .cornerRadius(10)
                 })
             }.padding(14)
-            
-            
         }
+        .onDisappear {
+            notificationManager.reloadLocalNotifications()
+        }
+        
+        
         .navigationTitle("Add an Item 🖊")
         .alert(isPresented: $showAlert, content: {
             getAlert()
@@ -95,6 +99,11 @@ struct AddView: View {
             listViewModel.addItem(title: textFieldText, dateCompleted: dateToString(date: date), date: date)
             
             presentationMode.wrappedValue.dismiss()
+        }
+        // to create the notification
+        let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
+        guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
+        notificationManager.createLocalNotification(title: textFieldText, hour: hour, minute: minute) { error in
         }
     }
     
@@ -120,6 +129,7 @@ struct AddView: View {
         let now = df.string(from: date)
         return now
     }
+    
 }
 
 
