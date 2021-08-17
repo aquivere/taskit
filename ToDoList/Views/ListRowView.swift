@@ -39,9 +39,19 @@ struct ListRowView: View {
                 .foregroundColor(item.isCompleted ? Color.accentColor: Color.accentColor)
                 .padding(.leading, 10)
 
-            Text(item.title)
-                .padding(.vertical, 2)
-                .frame(alignment: .leading)
+            if item.isCompleted == true {
+                Text(item.title)
+                    .strikethrough()
+                    .padding(.vertical, 2)
+                    .frame(alignment: .leading)
+                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                
+            } else {
+                Text(item.title)
+                    .padding(.vertical, 2)
+                    .frame(alignment: .leading)
+            }
+            
             
             Spacer()
             if item.date < Date() {
