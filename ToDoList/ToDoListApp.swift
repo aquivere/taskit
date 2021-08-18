@@ -23,6 +23,7 @@ struct ToDoListApp: App {
         WindowGroup {
             NavigationView {
                 ListView()
+                NotificationListView()
             }
             .environmentObject(listViewModel)
         }

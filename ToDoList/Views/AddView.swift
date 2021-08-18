@@ -84,7 +84,7 @@ struct AddView: View {
             }.padding(14)
         }
         .onDisappear {
-           // notificationManager.reloadLocalNotifications()
+            notificationManager.reloadLocalNotifications()
         }
         
         
@@ -99,13 +99,14 @@ struct AddView: View {
             listViewModel.addItem(title: textFieldText, dateCompleted: dateToString(date: date), date: date)
             
             presentationMode.wrappedValue.dismiss()
-        }
-        // to create the notification
-        let emojis = "‼️😱⏳"
-        let text = textFieldText + emojis
-        let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
-        guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
-        notificationManager.createLocalNotification(title: text, hour: hour, minute: minute) { error in
+            
+            // to create the notification
+            let emojis = "‼️😱⏳"
+            let text = textFieldText + emojis
+            let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
+            guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
+            notificationManager.createLocalNotification(title: text, hour: hour, minute: minute) { error in
+            }
         }
     }
     
