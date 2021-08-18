@@ -13,7 +13,7 @@ struct ListRowView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     
     let SecondaryAccentColor = Color("Color")
-    
+    let regularListColor = Color("RegularListColor")
     @State var checkMark: Bool = false
     
     var body: some View {
@@ -36,11 +36,11 @@ struct ListRowView: View {
             
             Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
                 .animation(Animation.default.delay(2))
-                .foregroundColor(item.isCompleted ? Color.accentColor: Color.accentColor)
+                .foregroundColor(item.isCompleted ? regularListColor: regularListColor)
                 .padding(.leading, 10)
 
             Text(item.title)
-                .padding(.vertical, 2)
+                .padding(.vertical, 3)
                 .frame(alignment: .leading)
             
             Spacer()
@@ -83,8 +83,12 @@ struct ListRowView_Previews: PreviewProvider {
         Group {
             ListRowView(item: item1)
                 .preferredColorScheme(.dark)
+            ListRowView(item: item1)
+                .preferredColorScheme(.dark)
             ListRowView(item: item2)
         }
         .previewLayout(.sizeThatFits)
     }
 }
+
+

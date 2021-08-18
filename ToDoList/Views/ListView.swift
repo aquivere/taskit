@@ -7,6 +7,25 @@
 
 import SwiftUI
 
+// todo: create a toggle for on and off
+struct ToDoButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(Color("RegularListColor").opacity(configuration.isPressed ? 1 : 0.5))
+            .clipShape(Capsule())
+    }
+}
+
+struct RecurringButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(Color("RecurringListColor").opacity(configuration.isPressed ? 1 : 0.5))
+            .clipShape(Capsule())
+    }
+}
+
 struct ListView: View {
     
     @EnvironmentObject var listViewModel: ListViewModel
@@ -17,29 +36,60 @@ struct ListView: View {
         ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date())
     ]
     
+    // default is regular list
+    @State private var regularListClicked = true
+    @State private var recurringListClicked = false
+    
     var body: some View {
-        ZStack {
-            if listViewModel.items.isEmpty {
-                NoItemsView()
-                    .transition(AnyTransition.opacity.animation(.easeIn))
-            } else {
-                List {
-                    // Section 1: Recurring Features
-                    ForEach(listViewModel.items) { item in
-                        ListRowView(item: item)
-                            .onTapGesture {
-                                    listViewModel.updateItem(item: item)
-
-                            }
-                    }
-                    .onDelete(perform: listViewModel.deleteItem)
-                    .onMove(perform: listViewModel.moveItem)
+        VStack {
+            Image("LightClouds")
+                .resizable()
+                .frame(width: 450, height: 200)
+                .offset(y: -80)
+            Text("Let's start the day")
+                .font(.system(size: 25)).italic()
+                .offset(x: -40, y: -230)
+            
+            HStack {
+                Button ("To Do") {
+                    regularListClicked = true
+                    recurringListClicked = false
                 }
-                .listStyle(PlainListStyle())
+                .buttonStyle(ToDoButton())
+                .offset(x: -50)
+                Button ("Recurring") {
+                    recurringListClicked = true
+                    regularListClicked = false
+                }
+                .buttonStyle(RecurringButton())
+                .offset(x:50)
+            } .offset(y: -100)
+            if regularListClicked {
+                if listViewModel.items.isEmpty {
+                    NoItemsView()
+                        .transition(AnyTransition.opacity.animation(.easeIn))
+                        .offset(y: -100)
+                } else {
+                    ScrollView {
+                        // Section 1: Recurring Features
+                        ForEach(listViewModel.items) { item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                        listViewModel.updateItem(item: item)
+
+                                }
+                        }
+                        .onDelete(perform: listViewModel.deleteItem)
+                        .onMove(perform: listViewModel.moveItem)
+                    }
+                    .listStyle(PlainListStyle())
+                    .padding(30)
+                    .offset(y: -100)
+                }
             }
         }
-        .navigationTitle("📝 TO DO")
         
+        // .navigationTitle("📝 TO DO")
         .navigationBarItems(
             leading: EditButton(),
             trailing:
@@ -55,9 +105,8 @@ struct ListView_Previews: PreviewProvider {
         NavigationView {
             ListView()
         }
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(.light)
         .environmentObject(ListViewModel())
     }
 }
-
 
