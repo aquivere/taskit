@@ -40,8 +40,9 @@ final class NotificationManager: ObservableObject {
         }
     }
     
-    func createLocalNotification(title: String, hour: Int, minute: Int, completion: @escaping (Error?) -> Void) {
+    func createLocalNotification(title: String, day: Int, hour: Int, minute: Int, completion: @escaping (Error?) -> Void) {
         var dateComponents = DateComponents()
+        dateComponents.day = day
         dateComponents.hour = hour
         dateComponents.minute = minute
         

@@ -31,9 +31,9 @@ struct ListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     
     @State var items: [ItemModel] = [
-        ItemModel(title: "This is the first title!", isCompleted: false, dateCompleted: "04/03/2021", date: Date()),
-        ItemModel(title: "This is the second title", isCompleted: false, dateCompleted: "04/03/2021",date: Date()),
-        ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date())
+        ItemModel(title: "This is the first title!", isCompleted: false, dateCompleted: "04/03/2021", date: Date(), recurrence: ""),
+        ItemModel(title: "This is the second title", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: ""),
+        ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: "")
     ]
     
     // default is regular list
@@ -64,6 +64,8 @@ struct ListView: View {
                 .buttonStyle(RecurringButton())
                 .offset(x:50)
             } .offset(y: -100)
+            
+            // display regular list
             if regularListClicked {
                 if listViewModel.items.isEmpty {
                     NoItemsView()
@@ -85,9 +87,57 @@ struct ListView: View {
                     .listStyle(PlainListStyle())
                     .padding(30)
                     .offset(y: -100)
+                    NavigationLink(
+                        destination: AddView(),
+                        label: {
+                            Text("Add To-Do ✏️")
+                                .font(.headline).italic()
+                                .foregroundColor(.black).opacity(1.0)
+                                .padding()
+                                .background(Color("RegularListColor").opacity(0.6))
+                                .cornerRadius(20)
+                        }
+                    )
                 }
             }
+            
+            // display recurring list
+            else if recurringListClicked {
+                if listViewModel.recItems.isEmpty {
+                    NoItemsView()
+                        .transition(AnyTransition.opacity.animation(.easeIn))
+                        .offset(y: -100)
+                } else {
+                    ScrollView {
+                        // Section 1: Recurring Features
+                        ForEach(listViewModel.recItems) { item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
+                        }
+                        .onDelete(perform: listViewModel.deleteRecItem)
+                        .onMove(perform: listViewModel.moveRecItem)
+                    }
+                    .listStyle(PlainListStyle())
+                    .padding(30)
+                    .offset(y: -100)
+                    NavigationLink(
+                        destination: AddView(),
+                        label: {
+                            Text("Add To-Do ✏️")
+                                .font(.headline).italic()
+                                .foregroundColor(.black).opacity(1.0)
+                                .padding()
+                                .background(Color("RecurringListColor").opacity(0.6))
+                                .cornerRadius(20)
+                        }
+                    )
+                }
+            }
+            
         }
+            
         
         // .navigationTitle("📝 TO DO")
         .navigationBarItems(

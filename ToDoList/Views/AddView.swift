@@ -61,7 +61,7 @@ struct AddView: View {
                             
                         })
                         .padding()
-                        .foregroundColor(.white)
+                        //.foregroundColor(.black)
                         .font(.headline)
 
                         .cornerRadius(10)
@@ -71,16 +71,32 @@ struct AddView: View {
                 
                 Spacer()
                 
-                Button(action: saveButtonPressed,
-                       label: {
-                    Text("Save".uppercased())
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .frame(height:40)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .cornerRadius(10)
-                })
+                // if it is a regular reminder
+                if recurrenceTitle == "Do not repeat" {
+                    Button(action: saveButtonPressed,
+                           label: {
+                        Text("Save".uppercased())
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .frame(height:40)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                    })
+                } else {
+                    // if it is a recurring reminder
+                    Button(action: saveRecButtonPressed,
+                           label: {
+                        Text("Save".uppercased())
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .frame(height:40)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                    })
+                }
+                
             }.padding(14)
         }
         .onDisappear {
@@ -101,11 +117,23 @@ struct AddView: View {
             presentationMode.wrappedValue.dismiss()
             
             // to create the notification
+            // TODO: if complete, don't set off notification
             let emojis = "‼️😱⏳"
             let text = textFieldText + emojis
-            let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
-            guard let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
-            notificationManager.createLocalNotification(title: text, hour: hour, minute: minute) { error in
+            let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
+            guard let day = dateComponents.day, let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
+            notificationManager.createLocalNotification(title: text, day: day, hour: hour, minute: minute) { error in
+            }
+        }
+    }
+    
+    func saveRecButtonPressed() {
+        if textIsAppropriate() == true {
+            if recurrenceTitle == "Do not Repeat" {
+                saveButtonPressed()
+            } else {
+                listViewModel.addRecItem(title: textFieldText, dateCompleted: dateToString(date: date), date: date, recurrence: recurrenceTitle)
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }

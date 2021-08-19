@@ -14,6 +14,7 @@ struct ListRowView: View {
     
     let SecondaryAccentColor = Color("Color")
     let regularListColor = Color("RegularListColor")
+    let recurringListColor = Color("RecurringListColor")
     @State var checkMark: Bool = false
     
     var body: some View {
@@ -33,12 +34,22 @@ struct ListRowView: View {
 //            })
 //            .foregroundColor(item.isCompleted ? Color.accentColor: Color.accentColor)
 //            .padding(.leading, 10)
-            
-            Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
-                .animation(Animation.default.delay(2))
-                .foregroundColor(item.isCompleted ? regularListColor: regularListColor)
-                .padding(.leading, 10)
+            if (item.recurrence == "") {
+                // if regular list
+                Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
+                    .animation(Animation.default.delay(2))
+                    .foregroundColor(item.isCompleted ? regularListColor: regularListColor)
+                    .padding(.leading, 10)
 
+            } else {
+                // if recurring list
+                Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
+                    .animation(Animation.default.delay(2))
+                    .foregroundColor(item.isCompleted ? recurringListColor: recurringListColor)
+                    .padding(.leading, 10)
+
+            }
+            
             Text(item.title)
                 .padding(.vertical, 3)
                 .frame(alignment: .leading)
@@ -77,8 +88,8 @@ struct ListRowView_Previews: PreviewProvider {
     let item: ListViewModel
     let item2: ItemModel
     
-    static var item1 = ItemModel(title: "First Item!", isCompleted: false, dateCompleted: "04/03/2021", date: Date().addingTimeInterval(-5000))
-    static var item2 = ItemModel(title: "Second Item.", isCompleted: true, dateCompleted: "03/08/2021", date: Date().addingTimeInterval(5000))
+    static var item1 = ItemModel(title: "First Item!", isCompleted: false, dateCompleted: "04/03/2021", date: Date().addingTimeInterval(-5000), recurrence: "")
+    static var item2 = ItemModel(title: "Second Item.", isCompleted: true, dateCompleted: "03/08/2021", date: Date().addingTimeInterval(5000), recurrence: "")
     static var previews: some View {
         Group {
             ListRowView(item: item1)
