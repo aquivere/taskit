@@ -12,9 +12,10 @@ import UserNotifications
 
 
 final class NotificationManager: ObservableObject {
-
+    
     @Published private(set) var notifications: [UNNotificationRequest] = []
     @Published private(set) var authorizationStatus: UNAuthorizationStatus?
+    @Published var notifIds: [String] = []
     
     func reloadAuthorizationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in DispatchQueue.main.async {
@@ -40,17 +41,24 @@ final class NotificationManager: ObservableObject {
         }
     }
     
+    var notifId: String?
+    
     func createLocalNotification(title: String, day: Int, hour: Int, minute: Int, completion: @escaping (Error?) -> Void) {
+        
         var dateComponents = DateComponents()
         dateComponents.day = day
         dateComponents.hour = hour
         dateComponents.minute = minute
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
         notificationContent.sound = .default
+        
+        notifIds.append(UUID().uuidString)
+        print(UUID().uuidString)
+        print(notifIds[0])
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: trigger)
         

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NotificationListView: View {
-    @StateObject private var notificationManager = NotificationManager()
+    @StateObject private var notificationManager = ListViewModel()
     
     var body: some View {
         List(notificationManager.notifications, id: \.identifier) { notifications in

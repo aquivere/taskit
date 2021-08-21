@@ -10,7 +10,7 @@ import Foundation
 
 
 struct AddView: View {
-    @StateObject private var notificationManager = NotificationManager()
+    // @StateObject private var notificationManager = NotificationManager()
     @State var textFieldText: String = ""
     
     @State private var date = Date()
@@ -100,7 +100,7 @@ struct AddView: View {
             }.padding(14)
         }
         .onDisappear {
-            notificationManager.reloadLocalNotifications()
+            listViewModel.reloadLocalNotifications()
         }
         
         
@@ -122,7 +122,7 @@ struct AddView: View {
             let text = textFieldText + emojis
             let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
             guard let day = dateComponents.day, let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
-            notificationManager.createLocalNotification(title: text, day: day, hour: hour, minute: minute) { error in
+            listViewModel.createLocalNotification(title: text, day: day, hour: hour, minute: minute) { error in
             }
         }
     }

@@ -28,14 +28,12 @@ struct RecurringButton: ButtonStyle {
 
 struct ListView: View {
     
-    @EnvironmentObject var listViewModel: ListViewModel
-    
     @State var items: [ItemModel] = [
         ItemModel(title: "This is the first title!", isCompleted: false, dateCompleted: "04/03/2021", date: Date(), recurrence: ""),
         ItemModel(title: "This is the second title", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: ""),
         ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: "")
     ]
-    
+    @EnvironmentObject var listViewModel: ListViewModel
     // default is regular list
     @State private var regularListClicked = true
     @State private var recurringListClicked = false
@@ -135,7 +133,6 @@ struct ListView: View {
                     )
                 }
             }
-            
         }
             
         
@@ -147,7 +144,6 @@ struct ListView: View {
                                     AddView())
         )
     }
-    
 }
 
 struct ListView_Previews: PreviewProvider {

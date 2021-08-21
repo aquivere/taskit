@@ -24,6 +24,7 @@ struct ItemModel: Identifiable, Codable {
         self.recurrence = recurrence
     }
     
+    
     func updateCompletion() -> ItemModel {
         return ItemModel(id: id, title: title, isCompleted: !isCompleted, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
     }
