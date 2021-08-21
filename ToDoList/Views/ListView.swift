@@ -69,7 +69,7 @@ struct ListView: View {
                 // The list elements.
                 // normal list.
                 if regularListClicked {
-                        ScrollView {
+                        List {
                             // Section 1: Recurring Features
                             ForEach(listViewModel.items) { item in
                                 ListRowView(item: item)
@@ -100,7 +100,7 @@ struct ListView: View {
                 
                 //recurring list.
                 else if recurringListClicked {
-                        ScrollView {
+                        List {
                             // Section 1: Recurring Features
                             ForEach(listViewModel.recItems) { item in
                                 ListRowView(item: item)
