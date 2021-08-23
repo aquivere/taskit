@@ -117,23 +117,29 @@ struct AddView: View {
             presentationMode.wrappedValue.dismiss()
             
             // to create the notification
-            // TODO: if complete, don't set off notification
             let emojis = "‼️😱⏳"
             let text = textFieldText + emojis
-            let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
-            guard let day = dateComponents.day, let hour = dateComponents.hour, let minute = dateComponents.minute else { return }
-            listViewModel.createLocalNotification(title: text, day: day, hour: hour, minute: minute) { error in
+            
+            listViewModel.createLocalNotification(title: text, date: date, recurrence: "Do not repeat") { error in
             }
         }
     }
     
     func saveRecButtonPressed() {
         if textIsAppropriate() == true {
-            if recurrenceTitle == "Do not Repeat" {
+            if recurrenceTitle == "Do not repeat" {
                 saveButtonPressed()
+                return;
             } else {
                 listViewModel.addRecItem(title: textFieldText, dateCompleted: dateToString(date: date), date: date, recurrence: recurrenceTitle)
                 presentationMode.wrappedValue.dismiss()
+            }
+            
+            // create the notification
+            let emojis = "‼️😱⏳"
+            let text = textFieldText + emojis
+            
+            listViewModel.createLocalNotification(title: text, date: date, recurrence: recurrenceTitle) { error in
             }
         }
     }

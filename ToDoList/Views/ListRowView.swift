@@ -34,7 +34,7 @@ struct ListRowView: View {
 //            })
 //            .foregroundColor(item.isCompleted ? Color.accentColor: Color.accentColor)
 //            .padding(.leading, 10)
-            if (item.recurrence == "") {
+            if (item.recurrence == "Do not repeat") {
                 // if regular list
                 Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
                     .animation(Animation.default.delay(2))

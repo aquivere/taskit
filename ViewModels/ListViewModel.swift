@@ -52,6 +52,7 @@ class ListViewModel: ObservableObject {
         self.items = savedItems
     }
     func deleteItem(indexSet: IndexSet) {
+        // TODO: delete notification from here
         items.remove(atOffsets: indexSet)
         
     }
@@ -60,7 +61,7 @@ class ListViewModel: ObservableObject {
         
     }
     func addItem(title:String, dateCompleted: String, date: Date) {
-        let newItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: "")
+        let newItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: "Do not repeat")
         items.append(newItem)
         
     }
@@ -68,7 +69,9 @@ class ListViewModel: ObservableObject {
     func updateItem(item: ItemModel) {
         if var index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item.updateCompletion()
+            
             if !item.isCompleted {
+                // if item is turned into completed, then we no longer need to run the notification
                 index = index + 1
                // print(self.notif.notifIds[index])
                 let string = String(index)
@@ -85,7 +88,6 @@ class ListViewModel: ObservableObject {
                 }
             }
         }
-        
     }
     func saveItems() {
         if let encodedData = try? JSONEncoder().encode(items) {
@@ -122,11 +124,41 @@ class ListViewModel: ObservableObject {
         let newRecItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
         recItems.append(newRecItem)
         if let index = recItems.firstIndex(where: { $0.id == newRecItem.id }) {
+            // reset the completion to incomplete when recurring
            if newRecItem.recurrence == "Every Day" {
+                let recInfo: [Any] = [index, newRecItem]
+                let timer = Timer(fireAt: newRecItem.date, interval: 86400, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                RunLoop.current.add(timer, forMode: .default)
             
-            let recInfo: [Any] = [index, newRecItem]
-            let timer = Timer(fireAt: newRecItem.date, interval: 10, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
-            RunLoop.current.add(timer, forMode: .default)
+           } else if newRecItem.recurrence == "Every Week" {
+                let recInfo: [Any] = [index, newRecItem]
+                let timer = Timer(fireAt: newRecItem.date, interval: 604800, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                RunLoop.current.add(timer, forMode: .default)
+            
+           } else if newRecItem.recurrence == "Every Fortnight" {
+                let recInfo: [Any] = [index, newRecItem]
+                let timer = Timer(fireAt: newRecItem.date, interval: 1209600, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                RunLoop.current.add(timer, forMode: .default)
+            
+           } else if newRecItem.recurrence == "Every Month" {
+                let recInfo: [Any] = [index, newRecItem]
+                let dateComp = Calendar.current.dateComponents([.month], from: date)
+                if dateComp.month == 4 || dateComp.month == 6 || dateComp.month == 9 || dateComp.month == 11 {
+                    // 30 days
+                    let timer = Timer(fireAt: newRecItem.date, interval: 2592000, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                    RunLoop.current.add(timer, forMode: .default)
+                    
+                } else if dateComp.month == 2 {
+                    // Feb has 28 days
+                    let timer = Timer(fireAt: newRecItem.date, interval: 2419200, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                    RunLoop.current.add(timer, forMode: .default)
+                    
+                } else {
+                    // 31 days
+                    let timer = Timer(fireAt: newRecItem.date, interval: 2678400, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                    RunLoop.current.add(timer, forMode: .default)
+                    
+                }
            }
         }
     }
@@ -144,6 +176,7 @@ class ListViewModel: ObservableObject {
     }
     
     
+    // Notification functions
     
     
     func reloadAuthorizationStatus() {
@@ -170,23 +203,29 @@ class ListViewModel: ObservableObject {
         }
     }
     
-    func createLocalNotification(title: String, day: Int, hour: Int, minute: Int, completion: @escaping (Error?) -> Void) {
+    func createLocalNotification(title: String, date: Date, recurrence: String, completion: @escaping (Error?) -> Void) {
         
-        var dateComponents = DateComponents()
-        dateComponents.day = day
-        dateComponents.hour = hour
-        dateComponents.minute = minute
+        var dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        if recurrence == "Every Day" {
+            dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
+        } else if recurrence == "Every Week" {
+            dateComponents = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
+        } else if recurrence == "Every Fortnight" {
+            dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
+        } else if recurrence == "Every Month" {
+            dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
+        }
         
+        var trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        if recurrence != "Do not repeat" {
+            trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+    
+        }
+
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
         notificationContent.sound = .default
-        
-        /*
-        notifIds.append(UUID().uuidString)
-        print(UUID().uuidString)
-        print(notifIds[1])*/
         
         notifNum = notifNum + 1
         let myString = String(notifNum)
