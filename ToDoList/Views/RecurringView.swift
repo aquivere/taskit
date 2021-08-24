@@ -13,6 +13,7 @@ struct RecurringView: View {
     @Binding var recurrenceTitle: String
     
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var listViewModel: ListViewModel
     
     @State var options = [
         "Do Not Repeat",
@@ -29,7 +30,7 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Do not Repeat".uppercased())
-                    .foregroundColor(.white)
+                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)
@@ -40,7 +41,7 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Repeat Every Day".uppercased())
-                    .foregroundColor(.white)
+                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)
@@ -51,7 +52,7 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Repeat Every Week".uppercased())
-                    .foregroundColor(.white)
+                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)
@@ -62,7 +63,7 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Repeat Every Fortnight".uppercased())
-                    .foregroundColor(.white)
+                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)
@@ -73,7 +74,7 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Repeat Every Month".uppercased())
-                    .foregroundColor(.white)
+                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)

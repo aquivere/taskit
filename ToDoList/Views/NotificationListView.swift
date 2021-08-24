@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct NotificationListView: View {
-    @StateObject private var notificationManager = NotificationManager()
-    
-        // need to somehow link this to addview
+    @StateObject private var notificationManager = ListViewModel()
     
     var body: some View {
         List(notificationManager.notifications, id: \.identifier) { notifications in
@@ -18,7 +16,7 @@ struct NotificationListView: View {
                 .fontWeight(.semibold)
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Notifications")
+        // .navigationTitle("Notifications")
         .onAppear(perform: notificationManager.reloadAuthorizationStatus)
         .onChange(of: notificationManager.authorizationStatus) {
             authorizationStatus in switch authorizationStatus {
@@ -28,7 +26,6 @@ struct NotificationListView: View {
             case .authorized:
                 // get local authorisation
                 notificationManager.reloadLocalNotifications()
-            break
             default:
                 break
             }

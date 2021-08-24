@@ -13,17 +13,24 @@ struct ItemModel: Identifiable, Codable {
     let isCompleted: Bool
     let dateCompleted: String
     let date: Date
+    let recurrence: String
     
-    init(id: String = UUID().uuidString, title: String, isCompleted: Bool, dateCompleted: String, date: Date) {
+    init(id: String = UUID().uuidString, title: String, isCompleted: Bool, dateCompleted: String, date: Date, recurrence: String) {
         self.id = UUID().uuidString
         self.title = title
         self.isCompleted = isCompleted
         self.dateCompleted = dateCompleted
         self.date = date
+        self.recurrence = recurrence
     }
     
+    
     func updateCompletion() -> ItemModel {
-        return ItemModel(id: id, title: title, isCompleted: !isCompleted, dateCompleted: dateCompleted, date: date)
+        return ItemModel(id: id, title: title, isCompleted: !isCompleted, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
+    }
+    
+    func resetCompletion() -> ItemModel {
+        return ItemModel(id: id, title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
     }
     
 }
