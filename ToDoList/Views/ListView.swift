@@ -28,121 +28,125 @@ struct RecurringButton: ButtonStyle {
 
 struct ListView: View {
     
+    @EnvironmentObject var listViewModel: ListViewModel
+    
     @State var items: [ItemModel] = [
         ItemModel(title: "This is the first title!", isCompleted: false, dateCompleted: "04/03/2021", date: Date(), recurrence: ""),
         ItemModel(title: "This is the second title", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: ""),
         ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: "")
     ]
-    @EnvironmentObject var listViewModel: ListViewModel
+    
     // default is regular list
     @State private var regularListClicked = true
     @State private var recurringListClicked = false
     
     var body: some View {
-        VStack {
-            Image("LightClouds")
-                .resizable()
-                .frame(width: 450, height: 200)
-                .offset(y: -80)
-            Text("Let's start the day")
-                .font(.system(size: 25)).italic()
-                .offset(x: -40, y: -230)
-            
-            HStack {
-                Button ("To Do") {
-                    regularListClicked = true
-                    recurringListClicked = false
-                }
-                .buttonStyle(ToDoButton())
-                .offset(x: -50)
-                Button ("Recurring") {
-                    recurringListClicked = true
-                    regularListClicked = false
-                }
-                .buttonStyle(RecurringButton())
-                .offset(x:50)
-            } .offset(y: -100)
-            
-            // display regular list
-            if regularListClicked {
-                if listViewModel.items.isEmpty {
-                    NoItemsView()
-                        .transition(AnyTransition.opacity.animation(.easeIn))
-                        .offset(y: -100)
-                } else {
-                    ScrollView {
-                        // Section 1: Recurring Features
-                        ForEach(listViewModel.items) { item in
-                            ListRowView(item: item)
-                                .onTapGesture {
-                                        listViewModel.updateItem(item: item)
+        if listViewModel.items.isEmpty && listViewModel.recItems.isEmpty {
+            NoItemsView()
+                .transition(AnyTransition.opacity.animation(.easeIn))
+                .offset(y: -100)
+        } else {
+            VStack {
+                // background art.
+                backgroundArt()
+                
+                // Elements recurring and not recurring.
+                HStack {
+                    Button ("To Do") {
+                        regularListClicked = true
+                        recurringListClicked = false
+                    }
+                    .buttonStyle(ToDoButton())
+                    .offset(x: -50)
+                    Button ("Recurring") {
+                        recurringListClicked = true
+                        regularListClicked = false
+                    }
+                    .buttonStyle(RecurringButton())
+                    .offset(x:50)
+                } .offset(y: -100)
+                
+                // The list elements.
+                // normal list.
+                if regularListClicked {
+                        List {
+                            // Section 1: Recurring Features
+                            ForEach(listViewModel.items) { item in
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                            listViewModel.updateItem(item: item)
 
-                                }
+                                    }
+                            }
+                            .onDelete(perform: listViewModel.deleteItem)
+                            .onMove(perform: listViewModel.moveItem)
                         }
-                        .onDelete(perform: listViewModel.deleteItem)
-                        .onMove(perform: listViewModel.moveItem)
-                    }
-                    .listStyle(PlainListStyle())
-                    .padding(30)
-                    .offset(y: -100)
-                    NavigationLink(
-                        destination: AddView(),
-                        label: {
-                            Text("Add To-Do ✏️")
-                                .font(.headline).italic()
-                                .foregroundColor(.black).opacity(1.0)
-                                .padding()
-                                .background(Color("RegularListColor").opacity(0.6))
-                                .cornerRadius(20)
-                        }
-                    )
-                }
-            }
-            
-            // display recurring list
-            else if recurringListClicked {
-                if listViewModel.recItems.isEmpty {
-                    NoItemsView()
-                        .transition(AnyTransition.opacity.animation(.easeIn))
+                        .listStyle(PlainListStyle())
+                        .padding(30)
                         .offset(y: -100)
-                } else {
-                    ScrollView {
-                        // Section 1: Recurring Features
-                        ForEach(listViewModel.recItems) { item in
-                            ListRowView(item: item)
-                                .onTapGesture {
-                                    listViewModel.updateRecItem(recItem: item)
-                                }
-                        }
-                        .onDelete(perform: listViewModel.deleteRecItem)
-                        .onMove(perform: listViewModel.moveRecItem)
-                    }
-                    .listStyle(PlainListStyle())
-                    .padding(30)
-                    .offset(y: -100)
-                    NavigationLink(
-                        destination: AddView(),
-                        label: {
-                            Text("Add To-Do ✏️")
-                                .font(.headline).italic()
-                                .foregroundColor(.black).opacity(1.0)
-                                .padding()
-                                .background(Color("RecurringListColor").opacity(0.6))
-                                .cornerRadius(20)
-                        }
-                    )
+                        NavigationLink(
+                            destination: AddView(),
+                            label: {
+                                Text("Add To-Do ✏️")
+                                    .font(.headline).italic()
+                                    .foregroundColor(.black).opacity(1.0)
+                                    .padding()
+                                    .background(Color("RegularListColor").opacity(0.6))
+                                    .cornerRadius(20)
+                            }
+                        )
+                    
                 }
-            }
+                
+                //recurring list.
+                else if recurringListClicked {
+                        List {
+                            // Section 1: Recurring Features
+                            ForEach(listViewModel.recItems) { item in
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                        listViewModel.updateRecItem(recItem: item)
+                                    }
+                            }
+                            .onDelete(perform: listViewModel.deleteRecItem)
+                            .onMove(perform: listViewModel.moveRecItem)
+                        }
+                        .listStyle(PlainListStyle())
+                        .padding(30)
+                        .offset(y: -100)
+                        NavigationLink(
+                            destination: AddView(),
+                            label: {
+                                Text("Add To-Do ✏️")
+                                    .font(.headline).italic()
+                                    .foregroundColor(.black).opacity(1.0)
+                                    .padding()
+                                    .background(Color("RecurringListColor").opacity(0.6))
+                                    .cornerRadius(20)
+                            }
+                        )
+                }
+            }// .navigationTitle("📝 TO DO")
+            .navigationBarItems(
+                leading: EditButton(),
+                trailing:
+                    NavigationLink ("Add", destination:
+                                        AddView())
+            )
         }
-            
         
-        // .navigationTitle("📝 TO DO")
-        .navigationBarItems(
-            leading: EditButton(),
-            trailing:
-                NavigationLink ("Add", destination:
-                                    AddView())
-        )
+    }
+}
+
+struct backgroundArt: View {
+    var body: some View {
+        Image("LightClouds")
+            .resizable()
+            .frame(width: 450, height: 200)
+            .offset(y: -80)
+        Text("Let's start the day")
+            .font(.system(size: 25)).italic()
+            .offset(x: -40, y: -230)
     }
 }
 
