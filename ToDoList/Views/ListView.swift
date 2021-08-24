@@ -236,7 +236,7 @@ struct ListView: View {
           )
         }
     }
-}
+
 
 struct backgroundArt: View {
     var body: some View {
