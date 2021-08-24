@@ -68,12 +68,11 @@ struct ListView: View {
                         regularListClicked = false
                         todayListClicked = false
                         weeklyListClicked = false
-
                     }
                     .buttonStyle(RecurringButton())
                     .offset(x:-20)
+                    
                     // -------------------------------------------------- //
-                    // displaying sorted lists
                     Button ("Today") {
                         recurringListClicked = false
                         regularListClicked = false
@@ -92,8 +91,8 @@ struct ListView: View {
                     }
                     .buttonStyle(ToDoButton())
                     .offset(x:50)
+                    
                     // -------------------------------------------------- //
-
                 } .offset(y: -100)
                 
                 // The list elements.
@@ -159,6 +158,7 @@ struct ListView: View {
                 
                 // -------------------------------------------------- //
                 // displaying the sorted lists
+              
                 else if todayListClicked {
                         List {
                             // Section 1: Recurring Features
@@ -186,7 +186,7 @@ struct ListView: View {
                             }
                         )
                 }
-                
+
                 else if weeklyListClicked {
                         List {
                             // Section 1: Recurring Features
@@ -212,13 +212,11 @@ struct ListView: View {
                                     .background(Color("RecurringListColor").opacity(0.6))
                                     .cornerRadius(20)
                             }
-                        )
+                      )
                 }
-                
-                
-                // -------------------------------------------------- //
 
                 
+                // -------------------------------------------------- //
             }// .navigationTitle("📝 TO DO")
             .navigationBarItems(
                 leading: EditButton(),
@@ -227,15 +225,8 @@ struct ListView: View {
                                         AddView())
             )
         }
-        
-        .navigationBarItems(
-            leading: EditButton(),
-            trailing:
-                NavigationLink ("Add", destination:
-                                    AddView())
-          )
-        }
     }
+}
 
 
 struct backgroundArt: View {
