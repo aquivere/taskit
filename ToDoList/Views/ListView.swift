@@ -36,6 +36,7 @@ struct ListView: View {
         ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: "")
     ]
     
+
     // default is regular list
     @State private var regularListClicked = true
     @State private var recurringListClicked = false
@@ -135,6 +136,13 @@ struct ListView: View {
             )
         }
         
+        .navigationBarItems(
+            leading: EditButton(),
+            trailing:
+                NavigationLink ("Add", destination:
+                                    AddView())
+          )
+        }
     }
 }
 

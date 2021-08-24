@@ -39,6 +39,7 @@ struct ListRowView: View {
             Text(item.title)
                 .padding(.vertical, 3)
                 .frame(alignment: .leading)
+
             
             Spacer()
             if item.date < Date() {
