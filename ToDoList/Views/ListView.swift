@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// todo: create a toggle for on and off
+// TODO: create a toggle for on and off
 struct ToDoButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
