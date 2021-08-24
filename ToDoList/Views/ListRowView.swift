@@ -19,21 +19,7 @@ struct ListRowView: View {
     
     var body: some View {
         
-        HStack{
-            
-//            Button(action: updateModel, label: {
-//                if item.isCompleted == true || checkMark == true {
-//                    Image(systemName: "circle.fill")
-//
-//
-//                } else {
-//                    Image(systemName: "circle")
-//
-//                }
-//
-//            })
-//            .foregroundColor(item.isCompleted ? Color.accentColor: Color.accentColor)
-//            .padding(.leading, 10)
+        HStack {
             if (item.recurrence == "Do not repeat") {
                 // if regular list
                 Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
