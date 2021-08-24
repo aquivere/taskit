@@ -37,6 +37,10 @@ class ListViewModel: ObservableObject {
         }
     }
     
+    @Published var allItems: [ItemModel] = []
+    @Published var ordDailyItems: [ItemModel] = []
+    @Published var ordWeeklyItems: [ItemModel] = []
+    
     let itemsKey: String = "items_list"
     let recItemsKey: String = "rec_items_list"
     
@@ -63,7 +67,9 @@ class ListViewModel: ObservableObject {
     func addItem(title:String, dateCompleted: String, date: Date) {
         let newItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: "Do not repeat")
         items.append(newItem)
-        
+        allItems.append(newItem)
+        orderDailyTasks()
+        orderWeeklyTasks()
     }
     // TODO: CLEAN EVERYTHING UP !!!!!!!!!!
     func updateItem(item: ItemModel) {
@@ -123,6 +129,9 @@ class ListViewModel: ObservableObject {
     func addRecItem(title:String, dateCompleted: String, date: Date, recurrence: String) {
         let newRecItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
         recItems.append(newRecItem)
+        allItems.append(newRecItem)
+        orderDailyTasks()
+        orderWeeklyTasks()
         if let index = recItems.firstIndex(where: { $0.id == newRecItem.id }) {
             // reset the completion to incomplete when recurring
            if newRecItem.recurrence == "Every Day" {
@@ -235,5 +244,39 @@ class ListViewModel: ObservableObject {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: completion)
     }
     
+    
+    /* Functions to list daily tasks in order */
+    func orderDailyTasks() {
+        ordDailyItems = []
+        for item in allItems {
+            let date = Date()
+            let calendar = Calendar.current
+            let currComponents = calendar.dateComponents([.year, .month, .day], from: date)
+            let itemComponents = calendar.dateComponents([.year, .month, .day], from: item.date)
+            if itemComponents == currComponents {
+                ordDailyItems.append(item)
+            }
+        }
+        ordDailyItems = ordDailyItems.sorted(by: {
+                                                $0.date.compare($1.date) == .orderedAscending })
+    }
+    
+    
+    func orderWeeklyTasks() {
+        ordWeeklyItems = []
+        for item in allItems {
+            let date = Date()
+            let calendar = Calendar.current
+            let currComponents = calendar.dateComponents([.year, .weekOfYear], from: date)
+            let itemComponents = calendar.dateComponents([.year, .weekOfYear], from: item.date)
+            if itemComponents == currComponents {
+                ordWeeklyItems.append(item)
+            }
+        }
+        ordWeeklyItems = ordWeeklyItems.sorted(by: {
+                                                $0.date.compare($1.date) == .orderedAscending })
+    }
+    
 }
 
+ 

@@ -39,6 +39,8 @@ struct ListView: View {
     // default is regular list
     @State private var regularListClicked = true
     @State private var recurringListClicked = false
+    @State private var todayListClicked = false
+    @State private var weeklyListClicked = false
     
     var body: some View {
         if listViewModel.items.isEmpty && listViewModel.recItems.isEmpty {
@@ -55,15 +57,42 @@ struct ListView: View {
                     Button ("To Do") {
                         regularListClicked = true
                         recurringListClicked = false
+                        todayListClicked = false
+                        weeklyListClicked = false
                     }
                     .buttonStyle(ToDoButton())
                     .offset(x: -50)
                     Button ("Recurring") {
                         recurringListClicked = true
                         regularListClicked = false
+                        todayListClicked = false
+                        weeklyListClicked = false
+
                     }
                     .buttonStyle(RecurringButton())
+                    .offset(x:-20)
+                    // -------------------------------------------------- //
+                    // displaying sorted lists
+                    Button ("Today") {
+                        recurringListClicked = false
+                        regularListClicked = false
+                        todayListClicked = true
+                        weeklyListClicked = false
+                        listViewModel.orderDailyTasks()
+                    }
+                    .buttonStyle(ToDoButton())
+                    .offset(x:20)
+                    Button ("Weekly") {
+                        recurringListClicked = false
+                        regularListClicked = false
+                        todayListClicked = false
+                        weeklyListClicked = true
+                        listViewModel.orderWeeklyTasks()
+                    }
+                    .buttonStyle(ToDoButton())
                     .offset(x:50)
+                    // -------------------------------------------------- //
+
                 } .offset(y: -100)
                 
                 // The list elements.
@@ -126,6 +155,69 @@ struct ListView: View {
                             }
                         )
                 }
+                
+                // -------------------------------------------------- //
+                // displaying the sorted lists
+                else if todayListClicked {
+                        List {
+                            // Section 1: Recurring Features
+                            ForEach(listViewModel.ordDailyItems) { item in
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                        listViewModel.updateRecItem(recItem: item)
+                                    }
+                            }
+                            .onDelete(perform: listViewModel.deleteRecItem)
+                            .onMove(perform: listViewModel.moveRecItem)
+                        }
+                        .listStyle(PlainListStyle())
+                        .padding(30)
+                        .offset(y: -100)
+                        NavigationLink(
+                            destination: AddView(),
+                            label: {
+                                Text("Add To-Do ✏️")
+                                    .font(.headline).italic()
+                                    .foregroundColor(.black).opacity(1.0)
+                                    .padding()
+                                    .background(Color("RecurringListColor").opacity(0.6))
+                                    .cornerRadius(20)
+                            }
+                        )
+                }
+                
+                else if weeklyListClicked {
+                        List {
+                            // Section 1: Recurring Features
+                            ForEach(listViewModel.ordWeeklyItems) { item in
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                        listViewModel.updateRecItem(recItem: item)
+                                    }
+                            }
+                            .onDelete(perform: listViewModel.deleteRecItem)
+                            .onMove(perform: listViewModel.moveRecItem)
+                        }
+                        .listStyle(PlainListStyle())
+                        .padding(30)
+                        .offset(y: -100)
+                        NavigationLink(
+                            destination: AddView(),
+                            label: {
+                                Text("Add To-Do ✏️")
+                                    .font(.headline).italic()
+                                    .foregroundColor(.black).opacity(1.0)
+                                    .padding()
+                                    .background(Color("RecurringListColor").opacity(0.6))
+                                    .cornerRadius(20)
+                            }
+                        )
+                }
+                
+                
+                // -------------------------------------------------- //
+
+                
             }// .navigationTitle("📝 TO DO")
             .navigationBarItems(
                 leading: EditButton(),
