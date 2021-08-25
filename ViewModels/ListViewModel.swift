@@ -37,6 +37,10 @@ class ListViewModel: ObservableObject {
         }
     }
     
+    @Published var allItems: [ItemModel] = []
+    @Published var ordDailyItems: [ItemModel] = []
+    @Published var ordWeeklyItems: [ItemModel] = []
+    
     let itemsKey: String = "items_list"
     let recItemsKey: String = "rec_items_list"
     
@@ -63,7 +67,9 @@ class ListViewModel: ObservableObject {
     func addItem(title:String, dateCompleted: String, date: Date) {
         let newItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: "Do not repeat")
         items.append(newItem)
-        
+        allItems.append(newItem)
+        orderDailyTasks()
+        orderWeeklyTasks()
     }
     // TODO: CLEAN EVERYTHING UP !!!!!!!!!!
     func updateItem(item: ItemModel) {
@@ -112,17 +118,36 @@ class ListViewModel: ObservableObject {
         
     }
     
+    // recursive function to reset completion each month
     @objc func reset(timer: Timer) {
         guard let info = timer.userInfo as? [Any] else {print("error"); return;}
         guard let index = info[0] as? Int else {print("error"); return;}
         guard let newItem = info[1] as? ItemModel else {print("error"); return;}
+        guard var date = info[2] as? DateComponents else {print("error"); return;}
         self.recItems[index] = newItem.resetCompletion()
+        guard let month = date.month else {return;}
+        guard let year = date.year else {return;}
+        if month != 12 {
+            date.month = month + 1
+        } else {
+            date.year = year + 1
+            date.month = 1
+        }
+        let newInfo: [Any] = [index, newItem, date]
+        guard let setDate: Date = Calendar.current.date(from: date) else {return;}
+        print(setDate)
+        print("-----")
+        let timer = Timer(fireAt: setDate, interval: 10, target: self, selector: #selector(reset), userInfo: newInfo, repeats: false)
+        RunLoop.current.add(timer, forMode: .default)
         
     }
     
     func addRecItem(title:String, dateCompleted: String, date: Date, recurrence: String) {
         let newRecItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
         recItems.append(newRecItem)
+        allItems.append(newRecItem)
+        orderDailyTasks()
+        orderWeeklyTasks()
         if let index = recItems.firstIndex(where: { $0.id == newRecItem.id }) {
             // reset the completion to incomplete when recurring
            if newRecItem.recurrence == "Every Day" {
@@ -141,8 +166,15 @@ class ListViewModel: ObservableObject {
                 RunLoop.current.add(timer, forMode: .default)
             
            } else if newRecItem.recurrence == "Every Month" {
-                let recInfo: [Any] = [index, newRecItem]
-                let dateComp = Calendar.current.dateComponents([.month], from: date)
+            let dateComp = Calendar.current.dateComponents([.day, .month, .year], from: date)
+                let recInfo: [Any] = [index, newRecItem, dateComp]
+                
+                // recursive function to reset completion each month
+                let timer = Timer(fireAt: newRecItem.date, interval: 2592000, target: self, selector: #selector(reset), userInfo: recInfo, repeats: false)
+                RunLoop.current.add(timer, forMode: .default)
+             /*
+            
+            
                 if dateComp.month == 4 || dateComp.month == 6 || dateComp.month == 9 || dateComp.month == 11 {
                     // 30 days
                     let timer = Timer(fireAt: newRecItem.date, interval: 2592000, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
@@ -158,7 +190,7 @@ class ListViewModel: ObservableObject {
                     let timer = Timer(fireAt: newRecItem.date, interval: 2678400, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
                     RunLoop.current.add(timer, forMode: .default)
                     
-                }
+                }*/
            }
         }
     }
@@ -203,6 +235,27 @@ class ListViewModel: ObservableObject {
         }
     }
     
+    // function to create a time interval notification trigger, for fortnightly tasks
+    @objc func fortnightlyNotif(timer: Timer) {
+        
+        guard let info = timer.userInfo as? [Any] else {print("error"); return;}
+        guard let title = info[0] as? String else {print("error"); return;}
+        guard let completion = info[1] as? (Error?) -> Void else {print("error"); return;}
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1209600, repeats: true)
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = title
+        notificationContent.sound = .default
+        
+        notifNum = notifNum + 1
+        let myString = String(notifNum)
+
+        let request = UNNotificationRequest(identifier: myString, content: notificationContent, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: completion)
+        
+    }
+    
     func createLocalNotification(title: String, date: Date, recurrence: String, completion: @escaping (Error?) -> Void) {
         
         var dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
@@ -212,15 +265,23 @@ class ListViewModel: ObservableObject {
         } else if recurrence == "Every Week" {
             dateComponents = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
         } else if recurrence == "Every Fortnight" {
-            dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
+            dateComponents = Calendar.current.dateComponents([.weekday, .hour, .minute], from: date)
         } else if recurrence == "Every Month" {
             dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
         }
         
         var trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        if recurrence != "Do not repeat" {
+        
+        if recurrence == "Every Fortnight" {
+            // if it is a fortnightly task, set off a time interval trigger when the first due date is reached
+            let info: [Any] = [title, completion]
+            let timer = Timer(fireAt: date, interval: 1209600, target: self, selector: #selector(fortnightlyNotif), userInfo: info, repeats: false)
+            RunLoop.current.add(timer, forMode: .default)
+            return;
+        }
+        else if recurrence != "Do not repeat" {
             trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-    
+
         }
 
         let notificationContent = UNMutableNotificationContent()
@@ -235,5 +296,39 @@ class ListViewModel: ObservableObject {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: completion)
     }
     
+    
+    /* Functions to list daily tasks in order */
+    func orderDailyTasks() {
+        ordDailyItems = []
+        for item in allItems {
+            let date = Date()
+            let calendar = Calendar.current
+            let currComponents = calendar.dateComponents([.year, .month, .day], from: date)
+            let itemComponents = calendar.dateComponents([.year, .month, .day], from: item.date)
+            if itemComponents == currComponents {
+                ordDailyItems.append(item)
+            }
+        }
+        ordDailyItems = ordDailyItems.sorted(by: {
+                                                $0.date.compare($1.date) == .orderedAscending })
+    }
+    
+    
+    func orderWeeklyTasks() {
+        ordWeeklyItems = []
+        for item in allItems {
+            let date = Date()
+            let calendar = Calendar.current
+            let currComponents = calendar.dateComponents([.year, .weekOfYear], from: date)
+            let itemComponents = calendar.dateComponents([.year, .weekOfYear], from: item.date)
+            if itemComponents == currComponents {
+                ordWeeklyItems.append(item)
+            }
+        }
+        ordWeeklyItems = ordWeeklyItems.sorted(by: {
+                                                $0.date.compare($1.date) == .orderedAscending })
+    }
+    
 }
 
+ 
