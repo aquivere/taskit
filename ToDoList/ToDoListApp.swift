@@ -16,13 +16,17 @@ import SwiftUI
  */
 @main
 struct ToDoListApp: App {
-    
     @StateObject var listViewModel: ListViewModel = ListViewModel()
+    @ObservedObject var userSettings = UserModel()
     
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ListView()
+                if userSettings.isSetUp == false {
+                    TutorialView()
+                } else {
+                    ListView()
+                }
                 NotificationListView()
             }
             .environmentObject(listViewModel)

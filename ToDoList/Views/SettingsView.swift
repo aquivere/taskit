@@ -10,31 +10,28 @@ struct SettingsView: View {
     @ObservedObject var userSettings = UserModel()
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Profile")) {
-                    // TO DO: figure out to open a ext window to edit name
-                    Text("Name: ")
+        Form {
+            Section(header: Text("Profile")) {
+                // TO DO: figure out to open a ext window to edit name
+                Text("Name: ")
+                
+                // FIGURE OUT WHY TEXT ISNT WORKING
+                // TextField("New name", text: $userSettings.name)
+            }
+            
+            Section(header: Text("Display")) {
+                Toggle("Dark Mode", isOn: $userSettings.isDarkMode)
+                if userSettings.isDarkMode {
                     
-                    // FIGURE OUT WHY TEXT ISNT WORKING
-                    // TextField("New name", text: $userSettings.name)
                 }
                 
-                Section(header: Text("Display"), footer: Text("System theme overrides Dark Mode setting")) {
-                    Toggle("Dark Mode", isOn: $userSettings.isDarkMode)
-                    if userSettings.isDarkMode {
-                        
-                    }
-                    
-                    Picker(selection: $userSettings.selectedView, label: Text("View")) {
-                        ForEach(userSettings.views, id: \.self) {selectedView in
-                            Text(selectedView)
-                        }
+                Picker(selection: $userSettings.selectedView, label: Text("View")) {
+                    ForEach(userSettings.views, id: \.self) {selectedView in
+                        Text(selectedView)
                     }
                 }
-                // TO DO: about the app section
             }
-            .navigationTitle("Settings")
+            // TO DO: about the app section
         }
             
     }

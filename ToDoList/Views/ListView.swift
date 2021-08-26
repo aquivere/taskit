@@ -100,8 +100,6 @@ struct ListView_Previews: PreviewProvider {
         Group {
             ListView()
                 .environmentObject(ListViewModel())
-            ListView()
-                .environmentObject(ListViewModel())
         }
     }
 }
