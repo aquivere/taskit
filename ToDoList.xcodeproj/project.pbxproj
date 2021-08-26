@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E40F15B26D7150B007C5FDC /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E40F15A26D7150B007C5FDC /* UserModel.swift */; };
+		5E40F15D26D7155E007C5FDC /* OnboardingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E40F15C26D7155E007C5FDC /* OnboardingStepView.swift */; };
+		5E40F15F26D71590007C5FDC /* SetUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E40F15E26D71590007C5FDC /* SetUpView.swift */; };
+		5E40F16126D715A0007C5FDC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E40F16026D715A0007C5FDC /* SettingsView.swift */; };
+		5E40F16326D715CD007C5FDC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E40F16226D715CD007C5FDC /* TutorialView.swift */; };
 		5ED786D426CE662700C2297E /* RecurringListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED786D326CE662700C2297E /* RecurringListView.swift */; };
 		5EE4F26B26CA784F0018EC9B /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */; };
 		5EE4F26D26CA78AD0018EC9B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F26C26CA78AD0018EC9B /* NotificationManager.swift */; };
@@ -23,6 +28,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E40F15A26D7150B007C5FDC /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		5E40F15C26D7155E007C5FDC /* OnboardingStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepView.swift; sourceTree = "<group>"; };
+		5E40F15E26D71590007C5FDC /* SetUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpView.swift; sourceTree = "<group>"; };
+		5E40F16026D715A0007C5FDC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5E40F16226D715CD007C5FDC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		5ED786D326CE662700C2297E /* RecurringListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringListView.swift; sourceTree = "<group>"; };
 		5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
 		5EE4F26C26CA78AD0018EC9B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -99,6 +109,10 @@
 				EB60968F269BF56400628F36 /* RecurringView.swift */,
 				5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */,
 				5ED786D326CE662700C2297E /* RecurringListView.swift */,
+				5E40F15C26D7155E007C5FDC /* OnboardingStepView.swift */,
+				5E40F15E26D71590007C5FDC /* SetUpView.swift */,
+				5E40F16026D715A0007C5FDC /* SettingsView.swift */,
+				5E40F16226D715CD007C5FDC /* TutorialView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -116,6 +130,7 @@
 			children = (
 				5EE4F26C26CA78AD0018EC9B /* NotificationManager.swift */,
 				EBF99A4D26980E830083CDE5 /* ListViewModel.swift */,
+				5E40F15A26D7150B007C5FDC /* UserModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -189,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E40F16126D715A0007C5FDC /* SettingsView.swift in Sources */,
 				EBF99A4A26980BB20083CDE5 /* ItemModel.swift in Sources */,
 				5ED786D426CE662700C2297E /* RecurringListView.swift in Sources */,
 				EBF99A47269712CF0083CDE5 /* AddView.swift in Sources */,
@@ -197,9 +213,13 @@
 				EBF99A4E26980E830083CDE5 /* ListViewModel.swift in Sources */,
 				EBF99A3326970EBB0083CDE5 /* ToDoListApp.swift in Sources */,
 				5EE4F26B26CA784F0018EC9B /* NotificationListView.swift in Sources */,
+				5E40F15F26D71590007C5FDC /* SetUpView.swift in Sources */,
 				EBF99A4326970F360083CDE5 /* ListView.swift in Sources */,
 				EB1B43872699455E008D6DAC /* NoItemsView.swift in Sources */,
+				5E40F16326D715CD007C5FDC /* TutorialView.swift in Sources */,
+				5E40F15B26D7150B007C5FDC /* UserModel.swift in Sources */,
 				EBF99A45269710810083CDE5 /* ListRowView.swift in Sources */,
+				5E40F15D26D7155E007C5FDC /* OnboardingStepView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
