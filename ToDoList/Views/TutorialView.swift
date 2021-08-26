@@ -33,7 +33,7 @@ struct TutorialView: View {
             // Get user name and save it
             VStack (alignment: .center) {
                 Text("What is your name?")
-                                .frame(height: 50)
+                    .frame(height: 50)
                             
                 TextField("Enter name", text: $userSettings.name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
