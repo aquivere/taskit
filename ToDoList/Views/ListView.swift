@@ -1,13 +1,5 @@
-//
-//  ListView.swift
-//  ToDoList
-//
-//  Created by Borborick Zhu on 8/7/21.
-//
-
 import SwiftUI
 
-// TODO: create a toggle for on and off
 struct ToDoButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -17,237 +9,155 @@ struct ToDoButton: ButtonStyle {
     }
 }
 
-struct RecurringButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding()
-            .background(Color("RecurringListColor").opacity(configuration.isPressed ? 1 : 0.5))
-            .clipShape(Capsule())
-    }
-}
-
 struct ListView: View {
-    
     @EnvironmentObject var listViewModel: ListViewModel
+    @ObservedObject var userSettings = UserModel()
     
-    @State var items: [ItemModel] = [
-        ItemModel(title: "This is the first title!", isCompleted: false, dateCompleted: "04/03/2021", date: Date(), recurrence: ""),
-        ItemModel(title: "This is the second title", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: ""),
-        ItemModel(title: "Third!", isCompleted: false, dateCompleted: "04/03/2021",date: Date(), recurrence: "")
-    ]
-    
-
-    // default is regular list
-    @State private var regularListClicked = true
-    @State private var recurringListClicked = false
     @State private var todayListClicked = false
     @State private var weeklyListClicked = false
+   
+    let today = Date()
+    // let aWeekLater = Calendar.current.date(byAdding: dateComponent.day = 7, to: today)
     
     var body: some View {
-        if listViewModel.items.isEmpty && listViewModel.recItems.isEmpty {
-            NoItemsView()
-                .transition(AnyTransition.opacity.animation(.easeIn))
-                .offset(y: -100)
-        } else {
-            VStack {
-                // background art.
-                backgroundArt()
-                
-                // Elements recurring and not recurring.
-                HStack {
-                    Button ("To Do") {
-                        regularListClicked = true
-                        recurringListClicked = false
-                        todayListClicked = false
-                        weeklyListClicked = false
-                    }
-                    .buttonStyle(ToDoButton())
-                    .offset(x: -50)
-                    Button ("Recurring") {
-                        recurringListClicked = true
-                        regularListClicked = false
-                        todayListClicked = false
-                        weeklyListClicked = false
-                    }
-                    .buttonStyle(RecurringButton())
-                    .offset(x:-20)
+        VStack {
+           // if userSettings.selectedView == "Daily" {
+                // Set up for daily view
+                VStack (alignment: .leading) {
+                    Text("Hello \(userSettings.name),")
+                        .font(.title)
                     
-                    // -------------------------------------------------- //
-                    Button ("Today") {
-                        recurringListClicked = false
-                        regularListClicked = false
-                        todayListClicked = true
-                        weeklyListClicked = false
-                        listViewModel.orderDailyTasks()
-                    }
-                    .buttonStyle(ToDoButton())
-                    .offset(x:20)
-                    Button ("Weekly") {
-                        recurringListClicked = false
-                        regularListClicked = false
-                        todayListClicked = false
-                        weeklyListClicked = true
-                        listViewModel.orderWeeklyTasks()
-                    }
-                    .buttonStyle(ToDoButton())
-                    .offset(x:50)
+                    Text("you have \(listViewModel.ordDailyItems.count) tasks today")
+                        .font(.title)
+                        .bold()
                     
-                    // -------------------------------------------------- //
-                } .offset(y: -100)
+                    Text(today, style: .date)
+                        .italic()
+                        .font(.footnote)
+                }
+                .offset(x: 20)
+            HStack {
+                Button ("Today") {
+                    todayListClicked = true
+                    weeklyListClicked = false
+                    listViewModel.orderDailyTasks()
+                }
+                .buttonStyle(ToDoButton())
                 
-                // The list elements.
-                // normal list.
-                if regularListClicked {
-                        List {
-                            // Section 1: Recurring Features
-                            ForEach(listViewModel.items) { item in
-                                ListRowView(item: item)
-                                    .onTapGesture {
-                                            listViewModel.updateItem(item: item)
-
-                                    }
-                            }
-                            .onDelete(perform: listViewModel.deleteItem)
-                            .onMove(perform: listViewModel.moveItem)
+                Button ("This Week") {
+                    todayListClicked = false
+                    weeklyListClicked = true
+                    listViewModel.orderWeeklyTasks()
+                }
+                .buttonStyle(ToDoButton())
+                
+                Button("All Tasks") {
+                    todayListClicked = false
+                    weeklyListClicked = false
+                }
+                .buttonStyle(ToDoButton())
+            }
+            
+            if todayListClicked {
+                    List {
+                        // Section 1: Recurring Features
+                        ForEach(listViewModel.ordDailyItems) { item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
                         }
-                        .listStyle(PlainListStyle())
-                        .padding(30)
-                        .offset(y: -100)
-                        NavigationLink(
-                            destination: AddView(),
-                            label: {
-                                Text("Add To-Do ✏️")
-                                    .font(.headline).italic()
-                                    .foregroundColor(.black).opacity(1.0)
-                                    .padding()
-                                    .background(Color("RegularListColor").opacity(0.6))
-                                    .cornerRadius(20)
-                            }
-                        )
+                        .onDelete(perform: listViewModel.deleteRecItem)
+                        .onMove(perform: listViewModel.moveRecItem)
+                    }
+                    .listStyle(PlainListStyle())
+                    .padding(30)
+            }
+
+            else if weeklyListClicked {
+                    List {
+                        // Section 1: Recurring Features
+                        ForEach(listViewModel.ordWeeklyItems) { item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
+                        }
+                        .onDelete(perform: listViewModel.deleteRecItem)
+                        .onMove(perform: listViewModel.moveRecItem)
+                    }
+                    .listStyle(PlainListStyle())
+                    .padding(30)
                     
+            }
+            
+            else {
+                List {
+                    // Section 1: Recurring Features
+                    ForEach(listViewModel.allItems) { item in
+                        ListRowView(item: item)
+                            .onTapGesture {
+                                listViewModel.updateRecItem(recItem: item)
+                            }
+                    }
+                    .onDelete(perform: listViewModel.deleteRecItem)
+                    .onMove(perform: listViewModel.moveRecItem)
                 }
-                
-                //recurring list.
-                else if recurringListClicked {
-                        List {
-                            // Section 1: Recurring Features
-                            ForEach(listViewModel.recItems) { item in
-                                ListRowView(item: item)
-                                    .onTapGesture {
-                                        listViewModel.updateRecItem(recItem: item)
-                                    }
-                            }
-                            .onDelete(perform: listViewModel.deleteRecItem)
-                            .onMove(perform: listViewModel.moveRecItem)
-                        }
-                        .listStyle(PlainListStyle())
-                        .padding(30)
-                        .offset(y: -100)
-                        NavigationLink(
-                            destination: AddView(),
-                            label: {
-                                Text("Add To-Do ✏️")
-                                    .font(.headline).italic()
-                                    .foregroundColor(.black).opacity(1.0)
-                                    .padding()
-                                    .background(Color("RecurringListColor").opacity(0.6))
-                                    .cornerRadius(20)
-                            }
-                        )
+                .listStyle(PlainListStyle())
+                .padding(30)
+            }
+            
+            NavigationLink(
+                destination: AddView(),
+                label: {
+                    Text("Add To-Do ✏️")
+                        .font(.headline).italic()
+                        .foregroundColor(.black).opacity(1.0)
+                        .padding()
+                        .background(Color("RecurringListColor").opacity(0.6))
+                        .cornerRadius(20)
                 }
-                
-                // -------------------------------------------------- //
-                // displaying the sorted lists
-              
-                else if todayListClicked {
-                        List {
-                            // Section 1: Recurring Features
-                            ForEach(listViewModel.ordDailyItems) { item in
-                                ListRowView(item: item)
-                                    .onTapGesture {
-                                        listViewModel.updateRecItem(recItem: item)
-                                    }
-                            }
-                            .onDelete(perform: listViewModel.deleteRecItem)
-                            .onMove(perform: listViewModel.moveRecItem)
-                        }
-                        .listStyle(PlainListStyle())
-                        .padding(30)
-                        .offset(y: -100)
-                        NavigationLink(
-                            destination: AddView(),
-                            label: {
-                                Text("Add To-Do ✏️")
-                                    .font(.headline).italic()
-                                    .foregroundColor(.black).opacity(1.0)
-                                    .padding()
-                                    .background(Color("RecurringListColor").opacity(0.6))
-                                    .cornerRadius(20)
-                            }
-                        )
-                }
+          )
 
-                else if weeklyListClicked {
-                        List {
-                            // Section 1: Recurring Features
-                            ForEach(listViewModel.ordWeeklyItems) { item in
-                                ListRowView(item: item)
-                                    .onTapGesture {
-                                        listViewModel.updateRecItem(recItem: item)
-                                    }
-                            }
-                            .onDelete(perform: listViewModel.deleteRecItem)
-                            .onMove(perform: listViewModel.moveRecItem)
-                        }
-                        .listStyle(PlainListStyle())
-                        .padding(30)
-                        .offset(y: -100)
-                        NavigationLink(
-                            destination: AddView(),
-                            label: {
-                                Text("Add To-Do ✏️")
-                                    .font(.headline).italic()
-                                    .foregroundColor(.black).opacity(1.0)
-                                    .padding()
-                                    .background(Color("RecurringListColor").opacity(0.6))
-                                    .cornerRadius(20)
-                            }
-                      )
+            //.offset(y: -100)
+            /*} else if userSettings.selectedView == "Weekly" {
+                // Set up for weekly view
+                VStack (alignment: .leading) {
+                    Text("Hello \(userSettings.name),")
+                        .font(.title)
+                    
+                    Text("you have \(listViewModel.ordWeeklyItems.count) tasks this week")
+                        .font(.title)
+                        .bold()
+                    
+                    Text(today, style: .date) + Text("-") + Text(today, style: .date)
+                        .italic()
+                        .font(.footnote)
                 }
-
-                
-                // -------------------------------------------------- //
-            }// .navigationTitle("📝 TO DO")
-            .navigationBarItems(
-                leading: EditButton(),
-                trailing:
-                    NavigationLink ("Add", destination:
-                                        AddView())
-            )
+                    .offset(x: 20)
+                List {
+                    // Section 1: Recurring Features
+                    ForEach(listViewModel.ordWeeklyItems) { item in
+                        ListRowView(item: item)
+                            .onTapGesture {
+                                listViewModel.updateRecItem(recItem: item)
+                            }
+                    }
+                    .onDelete(perform: listViewModel.deleteRecItem)
+                    .onMove(perform: listViewModel.moveRecItem)
+                }
+                    .listStyle(PlainListStyle())
+                    .padding(30)
+                    .offset(y: -100)
+            }*/
+            
         }
-    }
-}
-
-
-struct backgroundArt: View {
-    var body: some View {
-        Image("LightClouds")
-            .resizable()
-            .frame(width: 450, height: 200)
-            .offset(y: -80)
-        Text("Let's start the day")
-            .font(.system(size: 25)).italic()
-            .offset(x: -40, y: -230)
     }
 }
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ListView()
-        }
-        .preferredColorScheme(.light)
-        .environmentObject(ListViewModel())
+        ListView()
+            .environmentObject(ListViewModel())
     }
 }
-
