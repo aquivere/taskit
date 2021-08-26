@@ -13,12 +13,13 @@ struct ListView: View {
    
     let today = Date()
     // let aWeekLater = Calendar.current.date(byAdding: dateComponent.day = 7, to: today)
+    // ^ need to figure out how to do this properly
     
     var body: some View {
         NavigationView {
-            if userSettings.selectedView == "Daily" {
-                // Set up for daily view
-                VStack (alignment: .leading) {
+            VStack(alignment: .leading ) {
+                if userSettings.selectedView == "Daily" {
+                    // Set up for daily view
                     Text("Hello \(userSettings.name),")
                         .font(.title)
                     
@@ -29,33 +30,25 @@ struct ListView: View {
                     Text(today, style: .date)
                         .italic()
                         .font(.footnote)
-                }
-                    .navigationBarItems(
-                        leading: NavigationLink(destination: SettingsView()) {
-                            Text("Settings")
-                        },
-                        trailing: NavigationLink(destination: AddView()) {
-                            Text("+")
+                    
+                    Divider()
+                    
+                    List {
+                        ForEach(listViewModel.ordDailyItems) { item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
                         }
-                    )
-                    .offset(x: 20)
-                
-                List {
-                    ForEach(listViewModel.ordDailyItems) { item in
-                        ListRowView(item: item)
-                            .onTapGesture {
-                                listViewModel.updateRecItem(recItem: item)
-                            }
+                        .onDelete(perform: listViewModel.deleteRecItem)
+                        .onMove(perform: listViewModel.moveRecItem)
                     }
-                    .onDelete(perform: listViewModel.deleteRecItem)
-                    .onMove(perform: listViewModel.moveRecItem)
-                }
-                    .listStyle(PlainListStyle())
-                    .padding(30)
-                    .offset(y: -100)
-            } else if userSettings.selectedView == "Weekly" {
-                // Set up for weekly view
-                VStack (alignment: .leading) {
+                        .listStyle(PlainListStyle())
+                        .padding(30)
+    
+                } else if userSettings.selectedView == "Weekly" {
+                    // Set up for weekly view
+                    // WEEKLY TASK COUNT IS FOR MON - SUN not NOW -> 7 days later NEED TO FIX
                     Text("Hello \(userSettings.name),")
                         .font(.title)
                     
@@ -66,31 +59,35 @@ struct ListView: View {
                     Text(today, style: .date) + Text("-") + Text(today, style: .date)
                         .italic()
                         .font(.footnote)
-                }
-                    .navigationBarItems(
-                        leading: NavigationLink(destination: SettingsView()) {
-                            Text("Settings")
-                        },
-                        trailing: NavigationLink(destination: AddView()) {
-                            Text("+")
+                    
+                    Divider()
+                    
+                    List {
+                        // Section 1: Recurring Features
+                        ForEach(listViewModel.ordWeeklyItems) { item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
                         }
-                    )
-                    .offset(x: 20)
-                List {
-                    // Section 1: Recurring Features
-                    ForEach(listViewModel.ordWeeklyItems) { item in
-                        ListRowView(item: item)
-                            .onTapGesture {
-                                listViewModel.updateRecItem(recItem: item)
-                            }
+                        .onDelete(perform: listViewModel.deleteRecItem)
+                        .onMove(perform: listViewModel.moveRecItem)
                     }
-                    .onDelete(perform: listViewModel.deleteRecItem)
-                    .onMove(perform: listViewModel.moveRecItem)
+                        .listStyle(PlainListStyle())
+                        .padding(30)
+                   
                 }
-                    .listStyle(PlainListStyle())
-                    .padding(30)
-                    .offset(y: -100)
+                    
             }
+                .navigationBarItems(
+                    leading: NavigationLink(destination: SettingsView()) {
+                        Text("Settings")
+                    },
+                    trailing: NavigationLink(destination: AddView()) {
+                        Text("+")
+                    }
+                )
+                .offset(x: 20)
         }
     }
 }

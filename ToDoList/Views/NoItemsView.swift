@@ -10,7 +10,6 @@ import SwiftUI
 struct NoItemsView: View {
     @State var animate: Bool = false
     
-    
     let SecondaryAccentColor = Color("Color")
     
     var body: some View {
