@@ -68,8 +68,11 @@ class ListViewModel: ObservableObject {
         let newItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: "Do not repeat")
         items.append(newItem)
         allItems.append(newItem)
-        orderDailyTasks()
-        orderWeeklyTasks()
+        
+        items = items.sorted(by: {
+                                                $0.date.compare($1.date) == .orderedAscending })
+        // orderDailyTasks()
+        // orderWeeklyTasks()
     }
     // TODO: CLEAN EVERYTHING UP !!!!!!!!!!
     func updateItem(item: ItemModel) {
@@ -154,8 +157,10 @@ class ListViewModel: ObservableObject {
         let newRecItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
         recItems.append(newRecItem)
         allItems.append(newRecItem)
-        orderDailyTasks()
-        orderWeeklyTasks()
+        recItems = recItems.sorted(by: {
+                                                $0.date.compare($1.date) == .orderedAscending })
+        // orderDailyTasks()
+        // orderWeeklyTasks()
         if let index = recItems.firstIndex(where: { $0.id == newRecItem.id }) {
             // reset the completion to incomplete when recurring
            if newRecItem.recurrence == "Every Day" {
@@ -306,6 +311,8 @@ class ListViewModel: ObservableObject {
     
     
     /* Functions to list daily tasks in order */
+    
+    /*
     func orderDailyTasks() {
         ordDailyItems = []
         for item in allItems {
@@ -335,7 +342,7 @@ class ListViewModel: ObservableObject {
         }
         ordWeeklyItems = ordWeeklyItems.sorted(by: {
                                                 $0.date.compare($1.date) == .orderedAscending })
-    }
+    }*/
     
 }
 

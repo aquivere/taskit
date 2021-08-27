@@ -36,6 +36,8 @@ class UserModel: ObservableObject {
         self.name = UserDefaults.standard.object(forKey: "name") as? String ?? "NAME"
         self.isSetUp = UserDefaults.standard.object(forKey: "isSetUp") as? Bool ?? false
         self.isDarkMode = UserDefaults.standard.object(forKey: "isDarkMode") as? Bool ?? false
-        self.selectedView = UserDefaults.standard.object(forKey: "selectedView") as? String ?? "All Tasks"
+        self.selectedView = UserDefaults.standard.object(forKey: "selectedView") as? String ?? "Daily"
     }
 }
+
+

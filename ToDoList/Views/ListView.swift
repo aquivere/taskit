@@ -18,23 +18,23 @@ struct ListView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading ) {
-                if userSettings.selectedView == "Daily" {
+               /* if userSettings.selectedView == "Daily" {
                     // Set up for daily view
                     TitleView()
                         .padding(.leading, 10)
                     
                     Divider()
                     
-                    ScrollView {
+                    List {
                         LazyVStack {
-                            ForEach(listViewModel.ordDailyItems) { item in
+                            ForEach(listViewModel.items) { item in
                                 ListRowView(item: item)
                                     .onTapGesture {
-                                        listViewModel.updateRecItem(recItem: item)
+                                        listViewModel.updateItem(item: item)
                                     }
                             }
-                            .onDelete(perform: listViewModel.deleteRecItem)
-                            .onMove(perform: listViewModel.moveRecItem)
+                            .onDelete(perform: listViewModel.deleteItem)
+                            .onMove(perform: listViewModel.moveItem)
                         }
                     }
                         .listStyle(PlainListStyle())
@@ -51,7 +51,7 @@ struct ListView: View {
                     
                     ScrollView {
                         LazyVStack {
-                            ForEach(listViewModel.ordWeeklyItems) { item in
+                            ForEach(listViewModel.recItems) { item in
                                 ListRowView(item: item)
                                     .onTapGesture {
                                         listViewModel.updateRecItem(recItem: item)
@@ -62,12 +62,9 @@ struct ListView: View {
                         }
                     }
                         .listStyle(PlainListStyle())
-                        
-                        
-                        
-                        
+                    
                    
-                } else if userSettings.selectedView == "All Tasks" {
+                }   else if userSettings.selectedView == "All Tasks" {
                     // Set up for weekly view
                     // WEEKLY TASK COUNT IS FOR MON - SUN not NOW -> 7 days later NEED TO FIX
                     TitleView()
@@ -89,7 +86,23 @@ struct ListView: View {
                     }
                         .listStyle(PlainListStyle())
                 }
-                    
+                */
+                TitleView()
+                    .padding(.leading, 10)
+                List {
+                    ForEach(listViewModel.items) { item in
+                        ListRowView(item: item)
+                            .onTapGesture {
+                                listViewModel.updateItem(item: item)
+                            }
+                    }
+                    .onDelete(perform: listViewModel.deleteItem)
+                    .onMove(perform: listViewModel.moveItem)
+                
+                .listStyle(PlainListStyle())
+                }
+                
+                WeeklyView()
             }
                 .navigationBarItems(
                     leading: NavigationLink(destination: SettingsView()) {
@@ -116,7 +129,7 @@ struct TitleView: View {
         Text("Hello \(userSettings.name),")
             .font(.title)
         
-        Text("you have \(listViewModel.allItems.count) tasks in total")
+        Text("you have \(listViewModel.items.count) tasks to complete here!")
             .font(.title)
             .bold()
         
@@ -125,6 +138,42 @@ struct TitleView: View {
             .font(.footnote)
     }
 }
+
+struct WeeklyView: View {
+    // TODO: align everything so it's centered
+    // also need to make the list background the same colour
+    // then repeat for all the other recurring
+    @ObservedObject var userSettings = UserModel()
+    @EnvironmentObject var listViewModel: ListViewModel
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25, style: .continuous)
+                            .fill(Color("Recurring"))
+                            .frame(width: 350, height: 250)
+            VStack {
+                
+                Text("Weekly Tasks").font(.headline)
+                
+                List {
+                    ForEach(listViewModel.recItems) { item in
+                        if item.recurrence == "Every Week" {
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }.background(Color("Recurring"))
+                        }
+                    }
+                    .onDelete(perform: listViewModel.deleteRecItem)
+                    .onMove(perform: listViewModel.moveRecItem)
+                
+                .listStyle(PlainListStyle())
+                }.frame(width: 300, height: 200, alignment: .center)
+            }
+        }.padding(10)
+    }
+}
+
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {

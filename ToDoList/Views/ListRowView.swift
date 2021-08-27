@@ -32,6 +32,7 @@ struct ListRowView: View {
                 Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
                     .animation(Animation.default.delay(2))
                     .foregroundColor(item.isCompleted ? recurringListColor: recurringListColor)
+                    .background(Color("Recurring"))
                     .padding(.leading, 10)
 
             }
