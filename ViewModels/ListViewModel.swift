@@ -118,8 +118,18 @@ class ListViewModel: ObservableObject {
         
     }
     
-    // recursive function to reset completion each month
+    
+    // function to reset completion for recurring items
+    
     @objc func reset(timer: Timer) {
+        guard let info = timer.userInfo as? [Any] else {print("error"); return;}
+        guard let index = info[0] as? Int else {print("error"); return;}
+        guard let newItem = info[1] as? ItemModel else {print("error"); return;}
+        self.recItems[index] = newItem.resetCompletion()
+    }
+    
+    // recursive function to reset completion each month
+    @objc func monthlyReset(timer: Timer) {
         guard let info = timer.userInfo as? [Any] else {print("error"); return;}
         guard let index = info[0] as? Int else {print("error"); return;}
         guard let newItem = info[1] as? ItemModel else {print("error"); return;}
@@ -135,8 +145,6 @@ class ListViewModel: ObservableObject {
         }
         let newInfo: [Any] = [index, newItem, date]
         guard let setDate: Date = Calendar.current.date(from: date) else {return;}
-        print(setDate)
-        print("-----")
         let timer = Timer(fireAt: setDate, interval: 10, target: self, selector: #selector(reset), userInfo: newInfo, repeats: false)
         RunLoop.current.add(timer, forMode: .default)
         
@@ -170,7 +178,7 @@ class ListViewModel: ObservableObject {
                 let recInfo: [Any] = [index, newRecItem, dateComp]
                 
                 // recursive function to reset completion each month
-                let timer = Timer(fireAt: newRecItem.date, interval: 2592000, target: self, selector: #selector(reset), userInfo: recInfo, repeats: false)
+                let timer = Timer(fireAt: newRecItem.date, interval: 2592000, target: self, selector: #selector(monthlyReset), userInfo: recInfo, repeats: false)
                 RunLoop.current.add(timer, forMode: .default)
              /*
             

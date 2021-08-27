@@ -76,6 +76,36 @@ struct ListView: View {
                         .listStyle(PlainListStyle())
                         .padding(30)
                    
+                } else if userSettings.selectedView == "All Tasks" {
+                    // Set up for weekly view
+                    // WEEKLY TASK COUNT IS FOR MON - SUN not NOW -> 7 days later NEED TO FIX
+                    Text("Hello \(userSettings.name),")
+                        .font(.title)
+                    
+                    Text("you have \(listViewModel.allItems.count) tasks in total")
+                        .font(.title)
+                        .bold()
+                    
+                    Text(today, style: .date) + Text("-") + Text(today, style: .date)
+                        .italic()
+                        .font(.footnote)
+                    
+                    Divider()
+                    
+                    List {
+                        // Section 1: Recurring Features
+                        ForEach(listViewModel.allItems) { item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
+                        }
+                        .onDelete(perform: listViewModel.deleteRecItem)
+                        .onMove(perform: listViewModel.moveRecItem)
+                    }
+                        .listStyle(PlainListStyle())
+                        .padding(30)
+                   
                 }
                     
             }
