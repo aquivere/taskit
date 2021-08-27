@@ -20,92 +20,74 @@ struct ListView: View {
             VStack(alignment: .leading ) {
                 if userSettings.selectedView == "Daily" {
                     // Set up for daily view
-                    Text("Hello \(userSettings.name),")
-                        .font(.title)
-                    
-                    Text("you have \(listViewModel.ordDailyItems.count) tasks today")
-                        .font(.title)
-                        .bold()
-                    
-                    Text(today, style: .date)
-                        .italic()
-                        .font(.footnote)
+                    TitleView()
+                        .padding(.leading, 10)
                     
                     Divider()
                     
-                    List {
-                        ForEach(listViewModel.ordDailyItems) { item in
-                            ListRowView(item: item)
-                                .onTapGesture {
-                                    listViewModel.updateRecItem(recItem: item)
-                                }
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(listViewModel.ordDailyItems) { item in
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                        listViewModel.updateRecItem(recItem: item)
+                                    }
+                            }
+                            .onDelete(perform: listViewModel.deleteRecItem)
+                            .onMove(perform: listViewModel.moveRecItem)
                         }
-                        .onDelete(perform: listViewModel.deleteRecItem)
-                        .onMove(perform: listViewModel.moveRecItem)
                     }
                         .listStyle(PlainListStyle())
-                        .padding(30)
+                        
+                        
     
                 } else if userSettings.selectedView == "Weekly" {
                     // Set up for weekly view
                     // WEEKLY TASK COUNT IS FOR MON - SUN not NOW -> 7 days later NEED TO FIX
-                    Text("Hello \(userSettings.name),")
-                        .font(.title)
-                    
-                    Text("you have \(listViewModel.ordWeeklyItems.count) tasks this week")
-                        .font(.title)
-                        .bold()
-                    
-                    Text(today, style: .date) + Text("-") + Text(today, style: .date)
-                        .italic()
-                        .font(.footnote)
+                    TitleView()
+                        .padding(.leading, 10)
                     
                     Divider()
                     
-                    List {
-                        // Section 1: Recurring Features
-                        ForEach(listViewModel.ordWeeklyItems) { item in
-                            ListRowView(item: item)
-                                .onTapGesture {
-                                    listViewModel.updateRecItem(recItem: item)
-                                }
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(listViewModel.ordWeeklyItems) { item in
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                        listViewModel.updateRecItem(recItem: item)
+                                    }
+                            }
+                            .onDelete(perform: listViewModel.deleteRecItem)
+                            .onMove(perform: listViewModel.moveRecItem)
                         }
-                        .onDelete(perform: listViewModel.deleteRecItem)
-                        .onMove(perform: listViewModel.moveRecItem)
                     }
                         .listStyle(PlainListStyle())
-                        .padding(30)
+                        
+                        
+                        
+                        
                    
                 } else if userSettings.selectedView == "All Tasks" {
                     // Set up for weekly view
                     // WEEKLY TASK COUNT IS FOR MON - SUN not NOW -> 7 days later NEED TO FIX
-                    Text("Hello \(userSettings.name),")
-                        .font(.title)
-                    
-                    Text("you have \(listViewModel.allItems.count) tasks in total")
-                        .font(.title)
-                        .bold()
-                    
-                    Text(today, style: .date) + Text("-") + Text(today, style: .date)
-                        .italic()
-                        .font(.footnote)
+                    TitleView()
+                        .padding(.leading, 10)
                     
                     Divider()
                     
-                    List {
-                        // Section 1: Recurring Features
-                        ForEach(listViewModel.allItems) { item in
-                            ListRowView(item: item)
-                                .onTapGesture {
-                                    listViewModel.updateRecItem(recItem: item)
-                                }
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(listViewModel.allItems) { item in
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                        listViewModel.updateRecItem(recItem: item)
+                                    }
+                            }
+                            .onDelete(perform: listViewModel.deleteRecItem)
+                            .onMove(perform: listViewModel.moveRecItem)
                         }
-                        .onDelete(perform: listViewModel.deleteRecItem)
-                        .onMove(perform: listViewModel.moveRecItem)
                     }
                         .listStyle(PlainListStyle())
-                        .padding(30)
-                   
                 }
                     
             }
@@ -117,8 +99,30 @@ struct ListView: View {
                         Text("+")
                     }
                 )
-                .offset(x: 20)
         }
+    }
+}
+
+
+// TitleView
+struct TitleView: View {
+    @ObservedObject var userSettings = UserModel()
+    @EnvironmentObject var listViewModel: ListViewModel
+    
+    let today = Date()
+    
+    var body: some View {
+        
+        Text("Hello \(userSettings.name),")
+            .font(.title)
+        
+        Text("you have \(listViewModel.allItems.count) tasks in total")
+            .font(.title)
+            .bold()
+        
+        Text(today, style: .date) + Text("-") + Text(today, style: .date)
+            .italic()
+            .font(.footnote)
     }
 }
 

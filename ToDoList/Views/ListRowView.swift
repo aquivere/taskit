@@ -13,23 +13,23 @@ struct ListRowView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     
     let SecondaryAccentColor = Color("Color")
-    let regularListColor = Color("RegularListColor")
+    let regularListColor = Color("Minimal")
     let recurringListColor = Color("RecurringListColor")
     @State var checkMark: Bool = false
     
     var body: some View {
         
         HStack {
-            if (item.recurrence == "Do not repeat") {
+            if (item.recurrence == "Do not repeat" || item.recurrence == "") {
                 // if regular list
-                Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
+                Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
                     .animation(Animation.default.delay(2))
                     .foregroundColor(item.isCompleted ? regularListColor: regularListColor)
                     .padding(.leading, 10)
 
             } else {
                 // if recurring list
-                Image(systemName: item.isCompleted ? "circle.fill"  : "circle")
+                Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
                     .animation(Animation.default.delay(2))
                     .foregroundColor(item.isCompleted ? recurringListColor: recurringListColor)
                     .padding(.leading, 10)
@@ -37,27 +37,31 @@ struct ListRowView: View {
             }
             
             Text(item.title)
+                .italic()
+                .fontWeight(.semibold)
+                .textCase(.lowercase)
                 .padding(.vertical, 3)
+                .padding(.leading, 5)
                 .frame(alignment: .leading)
 
             
             Spacer()
-            if item.date < Date() {
-                Text(item.dateCompleted)
-                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                
-            }
-            else {
-                Text(item.dateCompleted)
-                    .foregroundColor(Color.accentColor)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    
-            }
+//            if item.date < Date() {
+//                Text(item.dateCompleted)
+//                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+//                    .font(.caption)
+//                    .fontWeight(.semibold)
+//
+//            }
+//            else {
+//                Text(item.dateCompleted)
+//                    .foregroundColor(Color.accentColor)
+//                    .font(.caption)
+//                    .fontWeight(.semibold)
+//
+//            }
 
-        }.font(.title2)
+        }.font(.body)
         .padding(.vertical, 8)
         .padding(.trailing, 15)
     }
