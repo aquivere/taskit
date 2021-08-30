@@ -96,6 +96,7 @@ class ListViewModel: ObservableObject {
                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
                 }
             }
+            items.remove(at: (index - 1))
         }
     }
     func saveItems() {
@@ -125,10 +126,12 @@ class ListViewModel: ObservableObject {
     // function to reset completion for recurring items
     
     @objc func reset(timer: Timer) {
-        guard let info = timer.userInfo as? [Any] else {print("error"); return;}
-        guard let index = info[0] as? Int else {print("error"); return;}
-        guard let newItem = info[1] as? ItemModel else {print("error"); return;}
-        self.recItems[index] = newItem.resetCompletion()
+        guard let index = timer.userInfo as? Int else {print("error"); return;}
+        if (index >= recItems.count) {
+            timer.invalidate()
+            return;
+        }
+        self.recItems[index] = self.recItems[index].resetCompletion()
     }
     
     // recursive function to reset completion each month
@@ -137,7 +140,7 @@ class ListViewModel: ObservableObject {
         guard let index = info[0] as? Int else {print("error"); return;}
         guard let newItem = info[1] as? ItemModel else {print("error"); return;}
         guard var date = info[2] as? DateComponents else {print("error"); return;}
-        self.recItems[index] = newItem.resetCompletion()
+        self.recItems[index] = self.recItems[index].resetCompletion()
         guard let month = date.month else {return;}
         guard let year = date.year else {return;}
         if month != 12 {
@@ -166,18 +169,18 @@ class ListViewModel: ObservableObject {
             if newRecItem.recurrence == "Do not repeat" {
                  addItem(title: title, dateCompleted: dateCompleted, date: date)
             } else if newRecItem.recurrence == "Every Day" {
-                let recInfo: [Any] = [index, newRecItem]
-                let timer = Timer(fireAt: newRecItem.date, interval: 86400, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                // let recInfo: [Any] = [index, newRecItem]
+                let timer = Timer(fireAt: newRecItem.date, interval: 86400, target: self, selector: #selector(reset), userInfo: index, repeats: true)
                 RunLoop.current.add(timer, forMode: .default)
             
            } else if newRecItem.recurrence == "Every Week" {
-                let recInfo: [Any] = [index, newRecItem]
-                let timer = Timer(fireAt: newRecItem.date, interval: 604800, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+               // let recInfo: [Any] = [index, newRecItem]
+                let timer = Timer(fireAt: newRecItem.date, interval: 604800, target: self, selector: #selector(reset), userInfo: index, repeats: true)
                 RunLoop.current.add(timer, forMode: .default)
             
            } else if newRecItem.recurrence == "Every Fortnight" {
-                let recInfo: [Any] = [index, newRecItem]
-                let timer = Timer(fireAt: newRecItem.date, interval: 1209600, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
+                //let recInfo: [Any] = [index, newRecItem]
+                let timer = Timer(fireAt: newRecItem.date, interval: 1209600, target: self, selector: #selector(reset), userInfo: index, repeats: true)
                 RunLoop.current.add(timer, forMode: .default)
             
            } else if newRecItem.recurrence == "Every Month" {

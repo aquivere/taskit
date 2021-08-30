@@ -7,11 +7,20 @@
 
 import SwiftUI
 
+extension AnyTransition {
+    static var moveAndFade: AnyTransition {
+        let insertion = AnyTransition.move(edge: .trailing)
+            .combined(with: .opacity)
+        let removal = AnyTransition.scale
+            .combined(with: .opacity)
+        return .asymmetric(insertion: insertion, removal: removal)
+    }
+}
+
 struct ListRowView: View {
-    
+    @State private var pressed = false
     let item: ItemModel
     @EnvironmentObject var listViewModel: ListViewModel
-    
     let SecondaryAccentColor = Color("Color")
     let regularListColor = Color("Minimal")
     let recurringListColor = Color("RecurringListColor")
@@ -20,30 +29,57 @@ struct ListRowView: View {
     var body: some View {
         
         HStack {
-            //if (item.recurrence == "Do not repeat") {
+            if (item.recurrence == "Do not repeat") {
                 // if regular list
-                Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
-                    .animation(Animation.default.delay(2))
-                    .foregroundColor(item.isCompleted ? regularListColor: regularListColor)
+                Image(systemName: self.pressed ? "checkmark.square.fill"  : "square")
+                    .foregroundColor(regularListColor)
                     .padding(.leading, 10)
-
-           /* } else {
+                
+                Text(item.title)
+                    .italic()
+                    .fontWeight(.semibold)
+                    .textCase(.lowercase)
+                    .padding(.vertical, 3)
+                    .padding(.leading, 5)
+                    .frame(alignment: .leading)
+                    .opacity(self.pressed ? 0 : 1.0)
+                    .onTapGesture {
+                        // delete the task when completed
+                        withAnimation(.easeInOut(duration: 1)) {
+                            self.pressed.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.pressed.toggle()
+                            listViewModel.updateItem(item: item)
+                        }
+                    }
+                    
+           } else {
                 // if recurring list
                 Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
-                    .animation(Animation.default.delay(2))
-                    .foregroundColor(item.isCompleted ? recurringListColor: recurringListColor)
-                    .background(Color("Recurring"))
+                    .foregroundColor(regularListColor)
                     .padding(.leading, 10)
+                Text(item.title)
+                    .italic()
+                    .fontWeight(.semibold)
+                    .textCase(.lowercase)
+                    .padding(.vertical, 3)
+                    .padding(.leading, 5)
+                    .frame(alignment: .leading)
+                    .opacity(self.pressed ? 0 : 1.0)
+                    .onTapGesture {
+                        // complete the task when tapped, don't delete as it will refresh 
+                        withAnimation(.easeInOut(duration: 1)) {
+                            self.pressed.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.pressed.toggle()
+                            listViewModel.updateRecItem(recItem: item)
+                        }
+                    }
+            }
 
-            }*/
             
-            Text(item.title)
-                .italic()
-                .fontWeight(.semibold)
-                .textCase(.lowercase)
-                .padding(.vertical, 3)
-                .padding(.leading, 5)
-                .frame(alignment: .leading)
 
             
             Spacer()
@@ -74,7 +110,10 @@ struct ListRowView: View {
         }*/
         
     //}
+    
 }
+
+
 
 struct ListRowView_Previews: PreviewProvider {
     

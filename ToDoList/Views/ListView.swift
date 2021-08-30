@@ -11,6 +11,7 @@ struct ListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @ObservedObject var userSettings = UserModel()
     @StateObject var viewRouter: ViewRouter
+
    
     let today = Date()
     // let aWeekLater = Calendar.current.date(byAdding: dateComponent.day = 7, to: today)
@@ -57,9 +58,6 @@ struct ListView: View {
                 List {
                     ForEach(listViewModel.items) { item in
                         ListRowView(item: item)
-                            .onTapGesture {
-                                listViewModel.updateItem(item: item)
-                            }
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                             .listRowInsets(EdgeInsets())
                             .background(Color.white)

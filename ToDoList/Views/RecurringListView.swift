@@ -54,7 +54,7 @@ struct WeeklyRecurringListView: View {
             
                 List {
                     ForEach(listViewModel.recItems) { item in
-                        if item.recurrence == "Every Week" {
+                        if (item.recurrence == "Every Week" && !item.isCompleted) {
                             ListRowView(item: item)
                                 .onTapGesture {
                                     listViewModel.updateRecItem(recItem: item)
@@ -135,7 +135,7 @@ struct FortnightlyRecurringListView: View {
             
                 List {
                     ForEach(listViewModel.recItems) { item in
-                        if item.recurrence == "Every Fortnight" {
+                        if (item.recurrence == "Every Fortnight" && !item.isCompleted) {
                             ListRowView(item: item)
                                 .onTapGesture {
                                     listViewModel.updateRecItem(recItem: item)
@@ -217,7 +217,7 @@ struct MonthlyRecurringListView: View {
             
                 List {
                     ForEach(listViewModel.recItems) { item in
-                        if item.recurrence == "Every Fortnight" {
+                        if (item.recurrence == "Every Month" && !item.isCompleted) {
                             ListRowView(item: item)
                                 .onTapGesture {
                                     listViewModel.updateRecItem(recItem: item)
