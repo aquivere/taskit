@@ -41,7 +41,7 @@ struct TutorialView: View {
                     .frame(width: 300, height: 50, alignment: .center)
                 
                 if !userSettings.name.isEmpty {
-                    NavigationLink(destination: ListView(), label: {
+                    NavigationLink(destination: ListView(viewRouter: ViewRouter()), label: {
                         Text("Next")
                            .foregroundColor(.white)
                            .padding()

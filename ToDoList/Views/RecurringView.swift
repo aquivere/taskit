@@ -36,17 +36,17 @@ struct RecurringView: View {
                     .frame(maxWidth: .infinity)
                     .cornerRadius(0)
             })
-            Button(action: {
-                recurrenceTitle = "Every Day"
-                presentationMode.wrappedValue.dismiss()
-            }, label: {
-                Text("Repeat Every Day".uppercased())
-                    //.foregroundColor(.white)
-                    .font(.headline)
-                    .frame(height:40)
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(0)
-            })
+//            Button(action: {
+//                recurrenceTitle = "Every Day"
+//                presentationMode.wrappedValue.dismiss()
+//            }, label: {
+//                Text("Repeat Every Day".uppercased())
+//                    //.foregroundColor(.white)
+//                    .font(.headline)
+//                    .frame(height:40)
+//                    .frame(maxWidth: .infinity)
+//                    .cornerRadius(0)
+//            })
             Button(action: {
                 recurrenceTitle = "Every Week"
                 presentationMode.wrappedValue.dismiss()

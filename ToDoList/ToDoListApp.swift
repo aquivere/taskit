@@ -18,6 +18,7 @@ import SwiftUI
 struct ToDoListApp: App {
     @StateObject var listViewModel: ListViewModel = ListViewModel()
     @ObservedObject var userSettings = UserModel()
+    @StateObject var viewRouter = ViewRouter()
     
     var body: some Scene {
         WindowGroup {
@@ -25,7 +26,7 @@ struct ToDoListApp: App {
                 if userSettings.isSetUp == false {
                     TutorialView()
                 } else {
-                    ListView()
+                    MotherView(viewRouter: ViewRouter())
                 }
                 NotificationListView()
             }
