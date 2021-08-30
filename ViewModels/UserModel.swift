@@ -33,7 +33,7 @@ class UserModel: ObservableObject {
     public var views = ["Daily", "Weekly", "All Tasks"]
         
     init() {
-        self.name = UserDefaults.standard.object(forKey: "name") as? String ?? "NAME"
+        self.name = UserDefaults.standard.object(forKey: "name") as? String ?? ""
         self.isSetUp = UserDefaults.standard.object(forKey: "isSetUp") as? Bool ?? false
         self.isDarkMode = UserDefaults.standard.object(forKey: "isDarkMode") as? Bool ?? false
         self.selectedView = UserDefaults.standard.object(forKey: "selectedView") as? String ?? "Daily"
