@@ -20,14 +20,14 @@ struct ListRowView: View {
     var body: some View {
         
         HStack {
-            if (item.recurrence == "Do not repeat" || item.recurrence == "") {
+            //if (item.recurrence == "Do not repeat") {
                 // if regular list
                 Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
                     .animation(Animation.default.delay(2))
                     .foregroundColor(item.isCompleted ? regularListColor: regularListColor)
                     .padding(.leading, 10)
 
-            } else {
+           /* } else {
                 // if recurring list
                 Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
                     .animation(Animation.default.delay(2))
@@ -35,7 +35,7 @@ struct ListRowView: View {
                     .background(Color("Recurring"))
                     .padding(.leading, 10)
 
-            }
+            }*/
             
             Text(item.title)
                 .italic()
@@ -66,13 +66,14 @@ struct ListRowView: View {
         .padding(.vertical, 8)
         .padding(.trailing, 15)
     }
+    /*
     func updateModel() {
         listViewModel.updateItem(item: item)
         withAnimation(.default) {
             checkMark.toggle()
-        }
+        }*/
         
-    }
+    //}
 }
 
 struct ListRowView_Previews: PreviewProvider {

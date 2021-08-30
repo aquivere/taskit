@@ -163,7 +163,9 @@ class ListViewModel: ObservableObject {
         // orderWeeklyTasks()
         if let index = recItems.firstIndex(where: { $0.id == newRecItem.id }) {
             // reset the completion to incomplete when recurring
-           if newRecItem.recurrence == "Every Day" {
+            if newRecItem.recurrence == "Do not repeat" {
+                 addItem(title: title, dateCompleted: dateCompleted, date: date)
+            } else if newRecItem.recurrence == "Every Day" {
                 let recInfo: [Any] = [index, newRecItem]
                 let timer = Timer(fireAt: newRecItem.date, interval: 86400, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
                 RunLoop.current.add(timer, forMode: .default)

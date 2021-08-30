@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+ 
 struct WeeklyRecurringListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @ObservedObject var userSettings = UserModel()
@@ -53,21 +53,22 @@ struct WeeklyRecurringListView: View {
                 Divider()
             
                 List {
-                    ForEach(listViewModel.items) { item in
-                        ListRowView(item: item)
-                            .onTapGesture {
-                                listViewModel.updateItem(item: item)
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                            .listRowInsets(EdgeInsets())
-                            .background(Color.white)
+                    ForEach(listViewModel.recItems) { item in
+                        if item.recurrence == "Every Week" {
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                .listRowInsets(EdgeInsets())
+                                .background(Color.white)
+                        }
+                        
                     }
-                    .onDelete(perform: listViewModel.deleteItem)
-                    .onMove(perform: listViewModel.moveItem)
+                    .onDelete(perform: listViewModel.deleteRecItem)
+                    .onMove(perform: listViewModel.moveRecItem)
                 }
-
                 .listStyle(PlainListStyle())
-                
                 
             }
                 .navigationBarItems(
@@ -133,19 +134,21 @@ struct FortnightlyRecurringListView: View {
                 Divider()
             
                 List {
-                    ForEach(listViewModel.items) { item in
-                        ListRowView(item: item)
-                            .onTapGesture {
-                                listViewModel.updateItem(item: item)
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                            .listRowInsets(EdgeInsets())
-                            .background(Color.white)
+                    ForEach(listViewModel.recItems) { item in
+                        if item.recurrence == "Every Fortnight" {
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                .listRowInsets(EdgeInsets())
+                                .background(Color.white)
+                        }
+                        
                     }
-                    .onDelete(perform: listViewModel.deleteItem)
-                    .onMove(perform: listViewModel.moveItem)
+                    .onDelete(perform: listViewModel.deleteRecItem)
+                    .onMove(perform: listViewModel.moveRecItem)
                 }
-
                 .listStyle(PlainListStyle())
                 
                 
@@ -213,19 +216,21 @@ struct MonthlyRecurringListView: View {
                 Divider()
             
                 List {
-                    ForEach(listViewModel.items) { item in
-                        ListRowView(item: item)
-                            .onTapGesture {
-                                listViewModel.updateItem(item: item)
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                            .listRowInsets(EdgeInsets())
-                            .background(Color.white)
+                    ForEach(listViewModel.recItems) { item in
+                        if item.recurrence == "Every Fortnight" {
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    listViewModel.updateRecItem(recItem: item)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                .listRowInsets(EdgeInsets())
+                                .background(Color.white)
+                        }
+                        
                     }
-                    .onDelete(perform: listViewModel.deleteItem)
-                    .onMove(perform: listViewModel.moveItem)
+                    .onDelete(perform: listViewModel.deleteRecItem)
+                    .onMove(perform: listViewModel.moveRecItem)
                 }
-
                 .listStyle(PlainListStyle())
                 
                 

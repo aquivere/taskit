@@ -16,7 +16,7 @@ struct RecurringView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     
     @State var options = [
-        "Do Not Repeat",
+        "Do not repeat",
         "Every Day",
         "Every Week",
         "Every Fortnight",
@@ -26,10 +26,10 @@ struct RecurringView: View {
     var body: some View {
         List {
             Button(action: {
-                recurrenceTitle = "Do not Repeat"
+                recurrenceTitle = "Do not repeat"
                 presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Do not Repeat".uppercased())
+                Text("Do not repeat".uppercased())
                     //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
