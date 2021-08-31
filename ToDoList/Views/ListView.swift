@@ -25,34 +25,14 @@ struct ListView: View {
                 TitleView()
                     .padding(.leading, 10)
                 
+                // DAILY VIEW FOR REGULAR TASKS
                 Text("Daily View")
                     .fontWeight(.semibold)
                     .font(.body)
                     .textCase(.lowercase)
                     .padding(.vertical, 2)
                     .padding(.leading, 10)
-                    .contextMenu {
-                        
-                        Button(action: {
-                            viewRouter.currentPage = .page2
-                        }, label: {
-                            Text("Weekly View")
-                                .textCase(.lowercase)
-                        })
-                        Button(action: {
-                            viewRouter.currentPage = .page3
-                        }, label: {
-                            Text("Fortnightly View")
-                                .textCase(.lowercase)
-                        })
-                        Button(action: {
-                            viewRouter.currentPage = .page4
-                        }, label: {
-                            Text("Monthly View")
-                                .textCase(.lowercase)
-                        })
-                    }
-                
+                    
                 Divider()
                 
                 List {
@@ -67,9 +47,58 @@ struct ListView: View {
                 }
 
                 .listStyle(PlainListStyle())
+                .frame(height: 300)
                 
-                
-            }
+                // SECTION FOR RECURRING TASKS, CAN SWITCH BETWEEN VIEWS
+                VStack {
+                    Text("Weekly View")
+                        .fontWeight(.semibold)
+                        .font(.body)
+                        .textCase(.lowercase)
+                        .padding(.vertical, 2)
+                        .padding(.leading, 10)
+                        
+                        .contextMenu {
+                           
+                            Button(action: {
+                                viewRouter.currentPage = .page3
+                            }, label: {
+                                Text("Fortnightly View")
+                                    .textCase(.lowercase)
+                            })
+                            Button(action: {
+                                viewRouter.currentPage = .page4
+                            }, label: {
+                                Text("Monthly View")
+                                    .textCase(.lowercase)
+                            })
+                        }
+                Divider()
+                    List {
+                        ForEach(listViewModel.recItems) { item in
+                            if (item.recurrence == "Every Week" && !item.isCompleted) {
+                                ListRowView(item: item)
+                                    .onTapGesture {
+                                        listViewModel.updateRecItem(recItem: item)
+                                    }
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                    .listRowInsets(EdgeInsets())
+                                    .background(Color.white)
+                            }
+                            
+                        }
+                        .onDelete(perform: listViewModel.deleteRecItem)
+                        .onMove(perform: listViewModel.moveRecItem)
+                    }
+                    .listStyle(PlainListStyle())
+                    
+                }
+                .frame(width: 300, height: 200, alignment: .center)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.purple, lineWidth: 3)
+                    )                .padding(50)
+                }
                 .navigationBarItems(
                     leading: NavigationLink(destination: SettingsView()) {
                         Text("Settings")
