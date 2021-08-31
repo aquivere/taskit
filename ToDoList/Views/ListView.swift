@@ -79,12 +79,13 @@ struct ListView: View {
                     },
                     trailing: NavigationLink(destination: AddView()) {
                         Text("+")
-
                             .textCase(.lowercase)
                             .foregroundColor(Color(colorMinimal))
                     }
                 )
+                .navigationBarTitle("")
         }
+        
     }
 }
 

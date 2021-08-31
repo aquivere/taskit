@@ -22,9 +22,10 @@ struct ToDoListApp: App {
     
     var body: some Scene {
         WindowGroup {
+            
             NavigationView {
                 if userSettings.isSetUp == false {
-                    TutorialView()
+                    TutorialView(viewRouter: ViewRouter())
                 } else {
                     MotherView(viewRouter: ViewRouter())
                 }

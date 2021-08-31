@@ -61,6 +61,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EBEDEC3926DDEC13008383E4 /* Switching Views Files */ = {
+			isa = PBXGroup;
+			children = (
+				EB5C6C6C26DCC41A009854F0 /* Helper.swift */,
+				EB5C6C6E26DCC5E9009854F0 /* MotherView.swift */,
+				EB5C6C7026DCC687009854F0 /* ViewRouter.swift */,
+			);
+			path = "Switching Views Files";
+			sourceTree = "<group>";
+		};
 		EBF99A2626970EBB0083CDE5 = {
 			isa = PBXGroup;
 			children = (
@@ -106,11 +116,9 @@
 				EBF99A44269710810083CDE5 /* ListRowView.swift */,
 				EBF99A46269712CF0083CDE5 /* AddView.swift */,
 				EB1B43862699455E008D6DAC /* NoItemsView.swift */,
-				EB5C6C6C26DCC41A009854F0 /* Helper.swift */,
 				EB60968F269BF56400628F36 /* RecurringView.swift */,
 				5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */,
-				EB5C6C7026DCC687009854F0 /* ViewRouter.swift */,
-				EB5C6C6E26DCC5E9009854F0 /* MotherView.swift */,
+				EBEDEC3926DDEC13008383E4 /* Switching Views Files */,
 				5ED786D326CE662700C2297E /* RecurringListView.swift */,
 				5E40F16026D715A0007C5FDC /* SettingsView.swift */,
 				5E40F16226D715CD007C5FDC /* TutorialView.swift */,

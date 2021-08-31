@@ -9,13 +9,11 @@ import Foundation
 import UserNotifications
 
 /*
- 
 CRUD FUNCTIONS/Users/Vivian/Desktop/welcome/1-uni/projects/todolist_git/self-project/ViewModels/ListViewModel.swift
  create
  read
  update
  delete
- 
 */
 
 

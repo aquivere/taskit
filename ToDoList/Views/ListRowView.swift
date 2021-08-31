@@ -34,6 +34,17 @@ struct ListRowView: View {
                 Image(systemName: self.pressed ? "checkmark.square.fill"  : "square")
                     .foregroundColor(regularListColor)
                     .padding(.leading, 10)
+                    .opacity(self.pressed ? 0 : 1.0)
+                    .onTapGesture {
+                        // delete the task when completed
+                        withAnimation(.easeInOut(duration: 1)) {
+                            self.pressed.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.pressed.toggle()
+                            listViewModel.updateItem(item: item)
+                        }
+                    }
                 
                 Text(item.title)
                     .italic()

@@ -12,6 +12,7 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var userSettings = UserModel()
     
+    
     var body: some View {
         // NEED TO FIGURE out how to put in the title "settings"
             

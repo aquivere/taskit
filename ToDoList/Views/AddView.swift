@@ -24,8 +24,6 @@ struct AddView: View {
     @State var showAlert: Bool = false
     
     var body: some View {
-        
-        
         ScrollView {
             VStack {
                 

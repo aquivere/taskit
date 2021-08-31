@@ -9,6 +9,7 @@ import SwiftUI
 struct TutorialView: View {
     @State private var currentTab = 0
     @ObservedObject var userSettings = UserModel()
+    @StateObject var viewRouter: ViewRouter
     let minimal = "Minimal"
     
     var body: some View {
@@ -58,16 +59,19 @@ struct TutorialView: View {
                     .frame(width: 300, height: 50, alignment: .center)
                 
                 if !userSettings.name.isEmpty {
-                    NavigationLink(destination: MotherView(viewRouter: ViewRouter()), label: {
+                    
+                    
+                    Button (action: {
+                        userSettings.isSetUp = true
+                        //change views after clicking button.
+                        viewRouter.currentPage = .page1
+                    }, label: {
                         Text("Next")
                             .fontWeight(.semibold)
                             .textCase(.uppercase)
                             .foregroundColor(Color(minimal))
                             .padding()
-                            
-                            
-                        }
-                    )
+                    })
                 }
             }
         })
@@ -78,6 +82,6 @@ struct TutorialView: View {
 
 struct TutorialView_Previews: PreviewProvider {
     static var previews: some View {
-        TutorialView()
+        TutorialView(viewRouter: ViewRouter())
     }
 }
