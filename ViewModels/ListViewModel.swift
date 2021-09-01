@@ -43,7 +43,8 @@ class ListViewModel: ObservableObject {
     let recItemsKey: String = "rec_items_list"
     
     init() {
-        
+        getItems()
+        getRecItems()
     }
     
     // for regular items
@@ -106,7 +107,7 @@ class ListViewModel: ObservableObject {
     // for recurring items
     
     func getRecItems() {
-        guard let data = UserDefaults.standard.data(forKey: itemsKey) else {return}
+        guard let data = UserDefaults.standard.data(forKey: recItemsKey) else {return}
         guard let savedRecItems = try? JSONDecoder().decode([ItemModel].self, from: data)  else {return}
         self.recItems = savedRecItems
         
@@ -218,8 +219,8 @@ class ListViewModel: ObservableObject {
         
     }
     func saveRecItems() {
-        if let encodedData = try? JSONEncoder().encode(items) {
-            UserDefaults.standard.set(encodedData, forKey: itemsKey)
+        if let encodedData = try? JSONEncoder().encode(recItems) {
+            UserDefaults.standard.set(encodedData, forKey: recItemsKey)
         }
     }
     
@@ -251,6 +252,7 @@ class ListViewModel: ObservableObject {
         }
     }
     
+    /*
     // function to create a time interval notification trigger, for fortnightly tasks
     @objc func fortnightlyNotif(timer: Timer) {
         
@@ -270,12 +272,13 @@ class ListViewModel: ObservableObject {
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: completion)
         
-    }
+    }*/
     
     func createLocalNotification(title: String, date: Date, recurrence: String, completion: @escaping (Error?) -> Void) {
         
-        var dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
+        let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
         
+        /*
         if recurrence == "Every Day" {
             dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
         } else if recurrence == "Every Week" {
@@ -285,9 +288,10 @@ class ListViewModel: ObservableObject {
         } else if recurrence == "Every Month" {
             dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
         }
+        */
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
-        var trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        
+        /*
         if recurrence == "Every Fortnight" {
             // if it is a fortnightly task, set off a time interval trigger when the first due date is reached
             let info: [Any] = [title, completion]
@@ -298,7 +302,7 @@ class ListViewModel: ObservableObject {
         else if recurrence != "Do not repeat" {
             trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 
-        }
+        }*/
 
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = title
