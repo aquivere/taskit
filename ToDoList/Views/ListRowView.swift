@@ -25,6 +25,7 @@ struct ListRowView: View {
     let regularListColor = Color("Minimal")
     let recurringListColor = Color("RecurringListColor")
     @State var checkMark: Bool = false
+    let background = Color("background")
     
     var body: some View {
         
@@ -70,6 +71,17 @@ struct ListRowView: View {
                 Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
                     .foregroundColor(regularListColor)
                     .padding(.leading, 10)
+                    .opacity(self.pressed ? 0 : 1.0)
+                    .onTapGesture {
+                        // complete the task when tapped, don't delete as it will refresh
+                        withAnimation(.easeInOut(duration: 1)) {
+                            self.pressed.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.pressed.toggle()
+                            listViewModel.updateRecItem(recItem: item)
+                        }
+                    }
                 Text(item.title)
                     .italic()
                     .fontWeight(.semibold)
@@ -89,38 +101,12 @@ struct ListRowView: View {
                         }
                     }
             }
-
-            
-
-            
             Spacer()
-//            if item.date < Date() {
-//                Text(item.dateCompleted)
-//                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-//                    .font(.caption)
-//                    .fontWeight(.semibold)
-//
-//            }
-//            else {
-//                Text(item.dateCompleted)
-//                    .foregroundColor(Color.accentColor)
-//                    .font(.caption)
-//                    .fontWeight(.semibold)
-//
-//            }
-
-        }.font(.body)
+        }
+        .font(.body)
         .padding(.vertical, 8)
         .padding(.trailing, 15)
     }
-    /*
-    func updateModel() {
-        listViewModel.updateItem(item: item)
-        withAnimation(.default) {
-            checkMark.toggle()
-        }*/
-        
-    //}
     
 }
 

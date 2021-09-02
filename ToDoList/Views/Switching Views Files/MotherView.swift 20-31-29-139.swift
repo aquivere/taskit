@@ -14,9 +14,7 @@ struct MotherView: View {
     var body: some View {
         switch viewRouter.currentPage {
         case .page1: ListView(viewRouter: viewRouter)
-        case .page2: WeeklyRecurringListView(viewRouter: viewRouter)
-        case .page3: FortnightlyRecurringListView(viewRouter: viewRouter)
-        case .page4: MonthlyRecurringListView(viewRouter: viewRouter)
+        case .page5: TutorialView(viewRouter: viewRouter)
         }
     }
 }

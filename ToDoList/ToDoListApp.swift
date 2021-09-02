@@ -22,16 +22,16 @@ struct ToDoListApp: App {
     
     var body: some Scene {
         WindowGroup {
-            
-            NavigationView {
-                if userSettings.isSetUp == false {
+            if userSettings.isSetUp == false {
+                NavigationView {
                     TutorialView(viewRouter: ViewRouter())
-                } else {
-                    MotherView(viewRouter: ViewRouter())
-                }
-                NotificationListView()
+                    NotificationListView()
+                }.environmentObject(listViewModel)
+            } else {
+                MotherView(viewRouter: ViewRouter())
+                    .environmentObject(listViewModel)
             }
-            .environmentObject(listViewModel)
+            // TO DO: SOMEHOW INTEGRATE THE NOTIFICATIONLISTVIEW INTO THE MOTHERVIEW SO THAT NOTIFICATIONS CAN RUN. 
         }
     }
 }

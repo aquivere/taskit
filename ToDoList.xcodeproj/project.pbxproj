@@ -13,9 +13,9 @@
 		5ED786D426CE662700C2297E /* RecurringListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED786D326CE662700C2297E /* RecurringListView.swift */; };
 		5EE4F26B26CA784F0018EC9B /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */; };
 		EB1B43872699455E008D6DAC /* NoItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1B43862699455E008D6DAC /* NoItemsView.swift */; };
-		EB5C6C6D26DCC41A009854F0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5C6C6C26DCC41A009854F0 /* Helper.swift */; };
-		EB5C6C6F26DCC5E9009854F0 /* MotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5C6C6E26DCC5E9009854F0 /* MotherView.swift */; };
-		EB5C6C7126DCC687009854F0 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5C6C7026DCC687009854F0 /* ViewRouter.swift */; };
+		EB2075C826E0E04100EEE21A /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2075C726E0E04100EEE21A /* ViewRouter.swift */; };
+		EB2075CA26E0E04800EEE21A /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2075C926E0E04800EEE21A /* Helper.swift */; };
+		EB2075CC26E0E0CC00EEE21A /* MotherView.swift 20-31-29-139.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2075CB26E0E0CC00EEE21A /* MotherView.swift 20-31-29-139.swift */; };
 		EB609690269BF56400628F36 /* RecurringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB60968F269BF56400628F36 /* RecurringView.swift */; };
 		EBF99A3326970EBB0083CDE5 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF99A3226970EBB0083CDE5 /* ToDoListApp.swift */; };
 		EBF99A3726970EBC0083CDE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBF99A3626970EBC0083CDE5 /* Assets.xcassets */; };
@@ -34,9 +34,9 @@
 		5ED786D326CE662700C2297E /* RecurringListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringListView.swift; sourceTree = "<group>"; };
 		5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
 		EB1B43862699455E008D6DAC /* NoItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoItemsView.swift; sourceTree = "<group>"; };
-		EB5C6C6C26DCC41A009854F0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		EB5C6C6E26DCC5E9009854F0 /* MotherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotherView.swift; sourceTree = "<group>"; };
-		EB5C6C7026DCC687009854F0 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		EB2075C726E0E04100EEE21A /* ViewRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		EB2075C926E0E04800EEE21A /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		EB2075CB26E0E0CC00EEE21A /* MotherView.swift 20-31-29-139.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MotherView.swift 20-31-29-139.swift"; sourceTree = "<group>"; };
 		EB60968F269BF56400628F36 /* RecurringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringView.swift; sourceTree = "<group>"; };
 		EBF99A2F26970EBB0083CDE5 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBF99A3226970EBB0083CDE5 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
@@ -64,9 +64,9 @@
 		EBEDEC3926DDEC13008383E4 /* Switching Views Files */ = {
 			isa = PBXGroup;
 			children = (
-				EB5C6C6C26DCC41A009854F0 /* Helper.swift */,
-				EB5C6C6E26DCC5E9009854F0 /* MotherView.swift */,
-				EB5C6C7026DCC687009854F0 /* ViewRouter.swift */,
+				EB2075CB26E0E0CC00EEE21A /* MotherView.swift 20-31-29-139.swift */,
+				EB2075C926E0E04800EEE21A /* Helper.swift */,
+				EB2075C726E0E04100EEE21A /* ViewRouter.swift */,
 			);
 			path = "Switching Views Files";
 			sourceTree = "<group>";
@@ -212,15 +212,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB2075C826E0E04100EEE21A /* ViewRouter.swift in Sources */,
 				5E40F16126D715A0007C5FDC /* SettingsView.swift in Sources */,
-				EB5C6C6D26DCC41A009854F0 /* Helper.swift in Sources */,
 				EBF99A4A26980BB20083CDE5 /* ItemModel.swift in Sources */,
 				5ED786D426CE662700C2297E /* RecurringListView.swift in Sources */,
-				EB5C6C6F26DCC5E9009854F0 /* MotherView.swift in Sources */,
 				EBF99A47269712CF0083CDE5 /* AddView.swift in Sources */,
 				EB609690269BF56400628F36 /* RecurringView.swift in Sources */,
-				EB5C6C7126DCC687009854F0 /* ViewRouter.swift in Sources */,
+				EB2075CA26E0E04800EEE21A /* Helper.swift in Sources */,
 				EBF99A4E26980E830083CDE5 /* ListViewModel.swift in Sources */,
+				EB2075CC26E0E0CC00EEE21A /* MotherView.swift 20-31-29-139.swift in Sources */,
 				EBF99A3326970EBB0083CDE5 /* ToDoListApp.swift in Sources */,
 				5EE4F26B26CA784F0018EC9B /* NotificationListView.swift in Sources */,
 				EBF99A4326970F360083CDE5 /* ListView.swift in Sources */,
