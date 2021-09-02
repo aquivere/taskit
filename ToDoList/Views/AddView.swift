@@ -115,10 +115,7 @@ struct AddView: View {
             presentationMode.wrappedValue.dismiss()
             
             // to create the notification
-            let emojis = "‼️😱⏳"
-            let text = textFieldText + emojis
-            
-            listViewModel.createLocalNotification(title: text, date: date, recurrence: "Do not repeat") { error in
+            listViewModel.createLocalNotification(title: textFieldText, date: date, recurrence: "Do not repeat") { error in
             }
         }
     }
@@ -134,11 +131,12 @@ struct AddView: View {
             }
             
             // create the notification
+            /*
             let emojis = "‼️😱⏳"
             let text = textFieldText + emojis
             
             listViewModel.createLocalNotification(title: text, date: date, recurrence: recurrenceTitle) { error in
-            }
+            }*/
         }
     }
     

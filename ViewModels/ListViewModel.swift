@@ -56,6 +56,11 @@ class ListViewModel: ObservableObject {
     }
     func deleteItem(indexSet: IndexSet) {
         // TODO: delete notification from here
+        for item in indexSet {
+            let index = Int(item)
+            let myString = items[index].id
+            deleteLocalNotification(notifId: myString)
+        }
         items.remove(atOffsets: indexSet)
         
     }
@@ -75,27 +80,14 @@ class ListViewModel: ObservableObject {
     }
     // TODO: CLEAN EVERYTHING UP !!!!!!!!!!
     func updateItem(item: ItemModel) {
-        if var index = items.firstIndex(where: { $0.id == item.id }) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item.updateCompletion()
             
             if !item.isCompleted {
                 // if item is turned into completed, then we no longer need to run the notification
-                index = index + 1
-               // print(self.notif.notifIds[index])
-                let string = String(index)
-                UNUserNotificationCenter.current().getPendingNotificationRequests { (notificationRequests) in
-                   var identifiers: [String] = []
-                   for notification:UNNotificationRequest in notificationRequests {
-                    if notification.identifier == string {
-                        print(notification.identifier)
-                        print(string)
-                          identifiers.append(notification.identifier)
-                       }
-                   }
-                   UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
-                }
+                deleteLocalNotification(notifId: item.id)
             }
-            items.remove(at: (index - 1))
+            items.remove(at: (index))
         }
     }
     func saveItems() {
@@ -275,8 +267,18 @@ class ListViewModel: ObservableObject {
     }*/
     
     func createLocalNotification(title: String, date: Date, recurrence: String, completion: @escaping (Error?) -> Void) {
+        if let index = items.firstIndex(where: { $0.title == title }) {
+            let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = title
+            notificationContent.sound = .default
+            let myString = items[index].id
+            let request = UNNotificationRequest(identifier: myString, content: notificationContent, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: completion)
+        }
         
-        let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
+        
         
         /*
         if recurrence == "Every Day" {
@@ -289,7 +291,7 @@ class ListViewModel: ObservableObject {
             dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: date)
         }
         */
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
         
         /*
         if recurrence == "Every Fortnight" {
@@ -303,17 +305,7 @@ class ListViewModel: ObservableObject {
             trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
 
         }*/
-
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = title
-        notificationContent.sound = .default
         
-        notifNum = notifNum + 1
-        let myString = String(notifNum)
-
-        let request = UNNotificationRequest(identifier: myString, content: notificationContent, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: completion)
     }
     
     
@@ -351,6 +343,18 @@ class ListViewModel: ObservableObject {
                                                 $0.date.compare($1.date) == .orderedAscending })
     }*/
     
+
+    func deleteLocalNotification(notifId: String) {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (notificationRequests) in
+           var identifiers: [String] = []
+           for notification:UNNotificationRequest in notificationRequests {
+            if notification.identifier == notifId {
+                  identifiers.append(notification.identifier)
+               }
+           }
+           UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        }
+    }
 }
 
  

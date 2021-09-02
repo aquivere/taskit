@@ -5,6 +5,8 @@
 //  Created by Vivian Wang on 16/8/21.
 //
 
+/*
+
 import SwiftUI
 
 struct NotificationListView: View {
@@ -39,3 +41,4 @@ struct NotificationListView_Previews: PreviewProvider {
     }
 }
 
+*/

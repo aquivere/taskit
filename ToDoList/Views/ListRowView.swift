@@ -48,7 +48,6 @@ struct ListRowView: View {
                     }
                 
                 Text(item.title)
-                    .italic()
                     .fontWeight(.semibold)
                     .textCase(.lowercase)
                     .padding(.vertical, 3)
@@ -83,7 +82,6 @@ struct ListRowView: View {
                         }
                     }
                 Text(item.title)
-                    .italic()
                     .fontWeight(.semibold)
                     .textCase(.lowercase)
                     .padding(.vertical, 3)

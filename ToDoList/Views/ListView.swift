@@ -21,6 +21,7 @@ struct ListView: View {
     let background = "background"
     
     var body: some View {
+
         NavigationView {
             VStack(alignment: .leading ) {
                
@@ -29,7 +30,8 @@ struct ListView: View {
                 
                 // DAILY VIEW FOR REGULAR TASKS
                 Divider()
-                Text("Today")
+                Text("Tasks")
+                    .italic()
                     .fontWeight(.semibold)
                     .font(.body)
                     .textCase(.lowercase)
@@ -58,6 +60,7 @@ struct ListView: View {
                 if indexNumber == 1 {
                     Divider()
                     Text("this week")
+                        .italic()
                         .fontWeight(.semibold)
                         .font(.body)
                         .textCase(.lowercase)
@@ -87,6 +90,7 @@ struct ListView: View {
                 } else if indexNumber == 2 {
                     Divider()
                     Text("this fortnight")
+                        .italic()
                         .fontWeight(.semibold)
                         .font(.body)
                         .textCase(.lowercase)
@@ -116,6 +120,7 @@ struct ListView: View {
                 } else {
                     Divider()
                     Text("this month")
+                        .italic()
                         .fontWeight(.semibold)
                         .font(.body)
                         .textCase(.lowercase)
@@ -158,7 +163,22 @@ struct ListView: View {
                 }
             )
         }
+        // .navigationTitle("Notifications")
+        .onAppear(perform: listViewModel.reloadAuthorizationStatus)
+        .onChange(of: listViewModel.authorizationStatus) {
+            authorizationStatus in switch authorizationStatus {
+            case .notDetermined:
+                // request Authorization
+                listViewModel.requestAuthorization()
+            case .authorized:
+                // get local authorisation
+                listViewModel.reloadLocalNotifications()
+            default:
+                break
+            }
+        }
     }
+    
 }
 
 

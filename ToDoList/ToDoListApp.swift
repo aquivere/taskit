@@ -25,7 +25,6 @@ struct ToDoListApp: App {
             if userSettings.isSetUp == false {
                 NavigationView {
                     TutorialView(viewRouter: ViewRouter())
-                    NotificationListView()
                 }.environmentObject(listViewModel)
             } else {
                 MotherView(viewRouter: ViewRouter())
