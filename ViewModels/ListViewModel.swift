@@ -211,8 +211,6 @@ class ListViewModel: ObservableObject {
     }
     
     func resetRecItem() {
-        print("test")
-        
         var index = 0
         while (index < recItems.count) {
             let recItem = recItems[index]
@@ -221,8 +219,6 @@ class ListViewModel: ObservableObject {
             guard let itemYear = components.year else {return;}
             guard let itemMonth = components.month else {return;}
             let currComponents = Calendar.current.dateComponents([.weekOfYear, .year, .month], from: Date())
-            print(itemWeek)
-            print(currComponents)
             guard let currWeek = currComponents.weekOfYear else {return;}
             guard let currYear = currComponents.year else {return;}
             guard let currMonth = currComponents.month else {return;}
@@ -321,7 +317,6 @@ class ListViewModel: ObservableObject {
     }
     
     func reloadLocalNotifications() {
-        print("reloadLocalNotifications")
         UNUserNotificationCenter.current().getPendingNotificationRequests { notifications in
             DispatchQueue.main.sync {
                 self.notifications = notifications

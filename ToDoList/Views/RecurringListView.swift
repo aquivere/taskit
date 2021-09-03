@@ -70,6 +70,7 @@ struct FortnightlyRecurringListView: View {
             .onMove(perform: listViewModel.moveRecItem)
         }
         .listStyle(PlainListStyle())
+        .onAppear{ listViewModel.resetRecItem() }
     }
 }
 
@@ -102,6 +103,7 @@ struct MonthlyRecurringListView: View {
             .onMove(perform: listViewModel.moveRecItem)
         }
         .listStyle(PlainListStyle())
+        .onAppear{ listViewModel.resetRecItem() }
     }
     
 }
