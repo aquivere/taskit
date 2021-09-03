@@ -29,9 +29,13 @@ struct ItemModel: Identifiable, Codable {
         return ItemModel(id: id, title: title, isCompleted: !isCompleted, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
     }
     
-    func resetCompletion() -> ItemModel {
+    func updateRecCompletion(date: Date) -> ItemModel {
         return ItemModel(id: id, title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
+        
     }
-    
+    func updateRecDate(date: Date) -> ItemModel {
+        return ItemModel(id: id, title: title, isCompleted: isCompleted, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
+
+    }
 }
 

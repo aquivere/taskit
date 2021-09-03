@@ -115,7 +115,7 @@ class ListViewModel: ObservableObject {
     
     
     // function to reset completion for recurring items
-    
+    /*
     @objc func reset(timer: Timer) {
         guard let index = timer.userInfo as? Int else {print("error"); return;}
         if (index >= recItems.count) {
@@ -146,8 +146,12 @@ class ListViewModel: ObservableObject {
         RunLoop.current.add(timer, forMode: .default)
         
     }
-    
+    */
     func addRecItem(title:String, dateCompleted: String, date: Date, recurrence: String) {
+        if (recurrence == "Do not repeat") {
+            addItem(title: title, dateCompleted: dateCompleted, date: date)
+            return
+        }
         let newRecItem = ItemModel(title: title, isCompleted: false, dateCompleted: dateCompleted, date: date, recurrence: recurrence)
         recItems.append(newRecItem)
         allItems.append(newRecItem)
@@ -155,6 +159,8 @@ class ListViewModel: ObservableObject {
                                                 $0.date.compare($1.date) == .orderedAscending })
         // orderDailyTasks()
         // orderWeeklyTasks()
+        
+        /*
         if let index = recItems.firstIndex(where: { $0.id == newRecItem.id }) {
             // reset the completion to incomplete when recurring
             if newRecItem.recurrence == "Do not repeat" {
@@ -181,7 +187,7 @@ class ListViewModel: ObservableObject {
                 // recursive function to reset completion each month
                 let timer = Timer(fireAt: newRecItem.date, interval: 2592000, target: self, selector: #selector(monthlyReset), userInfo: recInfo, repeats: false)
                 RunLoop.current.add(timer, forMode: .default)
-             /*
+             
             
             
                 if dateComp.month == 4 || dateComp.month == 6 || dateComp.month == 9 || dateComp.month == 11 {
@@ -199,16 +205,95 @@ class ListViewModel: ObservableObject {
                     let timer = Timer(fireAt: newRecItem.date, interval: 2678400, target: self, selector: #selector(reset), userInfo: recInfo, repeats: true)
                     RunLoop.current.add(timer, forMode: .default)
                     
-                }*/
+                }
            }
-        }
+        }*/
     }
     
-    func updateRecItem(recItem: ItemModel) {
-        if let index = recItems.firstIndex(where: { $0.id == recItem.id }) {
-            recItems[index] = recItem.updateCompletion()
+    func resetRecItem() {
+        print("test")
+        
+        var index = 0
+        while (index < recItems.count) {
+            let recItem = recItems[index]
+            let components = Calendar.current.dateComponents([.weekOfYear, .year, .month], from: recItem.date)
+            guard let itemWeek = components.weekOfYear else {return;}
+            guard let itemYear = components.year else {return;}
+            guard let itemMonth = components.month else {return;}
+            let currComponents = Calendar.current.dateComponents([.weekOfYear, .year, .month], from: Date())
+            print(itemWeek)
+            print(currComponents)
+            guard let currWeek = currComponents.weekOfYear else {return;}
+            guard let currYear = currComponents.year else {return;}
+            guard let currMonth = currComponents.month else {return;}
+            
+            if (recItem.recurrence == "Every Week") {
+                // check if the current week is one week after than the due date, that means they did not complete the task that week
+                // if it is, then reset the due date to the next week
+                // if it is a later week after current week, leave as it is
+            
+                if (((currWeek > itemWeek) && (currYear == itemYear)) || (currYear > itemYear)) {
+                    // change due date to next one and back to incomplete
+                    updateRecItem(recItem: recItem)
+
+                }
+            } else if (recItem.recurrence == "Every Fortnight") {
+                // check if the current week is within the two weeks from the current week
+                // if the task is due this week or next week, we want to show it
+                // if the current week is after two weeks from previous due date, then that means they  did not complete the task that fortnight
+                // reset the due date to the next fortnight if so
+                // if it is completed within the two weeks, the due date is reset to after so leave as it is
+                if ( (currWeek > (itemWeek + 1)) && (currYear == itemYear) ) {
+                    updateRecItem(recItem: recItem)
+                } else if ( (currWeek == 1) && (itemWeek == 51) && (currYear == itemYear + 1) ) {
+                    updateRecItem(recItem: recItem)
+                } else if ( (currWeek == 2) && (itemWeek == 52) && (currYear == itemYear + 1) ) {
+                    updateRecItem(recItem: recItem)
+                }
+            } else if (recItem.recurrence == "Every Month") {
+                if ( ((currMonth > itemMonth) && (currYear == itemYear)) || (currYear > itemYear) ) {
+                    updateRecItem(recItem: recItem)
+                }
+            }
+            index = index + 1
         }
         
+    }
+    func updateRecItem(recItem: ItemModel) {
+        if let index = recItems.firstIndex(where: { $0.id == recItem.id }) {
+            var newDate: Date
+            if (recItem.recurrence == "Every Week") {
+                var components = Calendar.current.dateComponents([.weekday, .weekOfYear, .year], from: recItem.date)
+                guard let week = components.weekOfYear else {return;}
+                guard let year = components.year else {return;}
+                
+                if (week != 52) {
+                    components.weekOfYear = week + 1
+                } else {
+                    components.weekOfYear = 1
+                    components.year = year + 1
+                }
+                guard let newDate: Date = Calendar.current.date(from: components) else {return;}
+                recItems[index] = recItem.updateRecDate(date: newDate)
+            } else if (recItem.recurrence == "Every Fortnight") {
+                let timeLapsed: TimeInterval = 1209600
+                newDate = recItem.date + timeLapsed
+                recItems[index] = recItem.updateRecCompletion(date: newDate)
+                
+            } else if (recItem.recurrence == "Every Month") {
+                var components = Calendar.current.dateComponents([.day, .month, .year], from: recItem.date)
+                guard let month = components.month else {return;}
+                guard let year = components.year else {return;}
+                if (month != 12) {
+                    components.month = month + 1
+                } else {
+                    components.month = 1
+                    components.year = year + 1
+                }
+                guard let newDate: Date = Calendar.current.date(from: components) else {return;}
+                recItems[index] = recItem.updateRecCompletion(date: newDate)
+            }
+        }
     }
     func saveRecItems() {
         if let encodedData = try? JSONEncoder().encode(recItems) {
