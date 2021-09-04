@@ -71,13 +71,13 @@ struct ListView: View {
                             Button(action: {
                                 indexNumber = 2
                             }, label: {
-                                Text("Fortnightly Tasks")
+                                Text("this fortnight")
                                     .textCase(.lowercase)
                             })
                             Button(action: {
                                 indexNumber = 3
                             }, label: {
-                                Text("Monthly Tasks")
+                                Text("this month")
                                     .textCase(.lowercase)
                             })
                         }
@@ -101,13 +101,13 @@ struct ListView: View {
                             Button(action: {
                                 indexNumber = 1
                             }, label: {
-                                Text("Weekly Tasks")
+                                Text("this week")
                                     .textCase(.lowercase)
                             })
                             Button(action: {
                                 indexNumber = 3
                             }, label: {
-                                Text("Monthly Tasks")
+                                Text("this month")
                                     .textCase(.lowercase)
                             })
                         }
@@ -131,13 +131,13 @@ struct ListView: View {
                             Button(action: {
                                 self.indexNumber = 1
                             }, label: {
-                                Text("Weekly Tasks")
+                                Text("this week")
                                     .textCase(.lowercase)
                             })
                             Button(action: {
                                 self.indexNumber = 2
                             }, label: {
-                                Text("Fortnightly Tasks")
+                                Text("this fortnight")
                                     .textCase(.lowercase)
                             })
                         }
