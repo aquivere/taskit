@@ -4,7 +4,7 @@ Taskit is an IOS application using where you can store regular tasks and to-do i
 This application was built using Swift and SwiftUI.
 
 ## 🚀 Launch
-This application is not currently published on the Apple App Store. To test it on an iPhone, follow these instructions:
+This application is not currently published on the Apple App Store. To run it on an iPhone, follow these instructions:
 1. Git clone this repo and open it in Xcode.
 2. Connect iPhone to laptop through USB
 3. In the Product tab, choose Destination and set it to your iPhone. 
