@@ -14,7 +14,7 @@ Additional features include settings to toggle between light and dark mode withi
 ## 🚀 Launch
 This application is not currently published on the Apple App Store. To run it on an iPhone, please follow these instructions:
 1. Git clone this repo and open it in Xcode.
-2. Connect iPhone to laptop through USB
+2. Connect iPhone to laptop through USB.
 3. In the Product tab, choose Destination and set it to your iPhone. 
 4. Run the code to launch the app on your iPhone.
 5. In your iPhone settings, head to General > Device Management > Apple Development and click Trust to allow the app to be run on your phone.
