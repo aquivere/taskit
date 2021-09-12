@@ -32,17 +32,21 @@ class AppState: ObservableObject {
 struct ToDoListApp: App {
     @StateObject var listViewModel: ListViewModel = ListViewModel()
     @ObservedObject var userSettings = UserModel()
-    @ObservedObject var appState = AppState(hasOnboarded: false)    
+    @ObservedObject var appState = AppState(hasOnboarded: false)
+    @Environment(\.scenePhase) private var phase
+    
     var body: some Scene {
         WindowGroup {
             if appState.hasOnboarded == false && userSettings.isSetUp == false  {
                 TutorialView()
                     .environmentObject(appState)
                     .environmentObject(listViewModel)
+                    .modifier(DarkModeViewModifier())
             } else {
                 ListView()
                     .environmentObject(appState)
                     .environmentObject(listViewModel)
+                    .modifier(DarkModeViewModifier())
             }
         }
     }
