@@ -19,7 +19,9 @@ https://user-images.githubusercontent.com/79503993/132985992-070cc38e-63e6-48e2-
 There is also the option to allow notifications for regular tasks  
 <br /> 
 
-https://user-images.githubusercontent.com/79503993/132985882-afda0f56-a9c5-4b2a-aa82-3d1fbd56df4d.mp4
+
+https://user-images.githubusercontent.com/79503993/132986082-38398ad9-32bc-4b81-a0a2-0e9ada79d62f.mp4
+
 
 <br />
 The three time periods - weekly, fortnightly and monthly - each have lists which can be viewed by long pressing on the list title, and then switching between them.  <br /> 
