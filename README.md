@@ -9,7 +9,7 @@ There are then two lists shown - one for regular one-time tasks, and the other f
 There is also the option to allow notifications for regular tasks [INSERT VIDEO CLIP] <br />
 The three time periods - weekly, fortnightly and monthly - each have lists which can be viewed by long pressing on the list title, and then switching between them. 
 [INSERT VIDEO CLIP] <br />
-Additional features include being able to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen.
+Additional features include settings to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen. [INSERT VIDEO CLIP] <br />
 
 ## 🚀 Launch
 This application is not currently published on the Apple App Store. To run it on an iPhone, follow these instructions:
