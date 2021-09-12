@@ -19,27 +19,15 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section(header: Text("Name")) {
-                HStack {
-                    if nameInEditMode {
-                        TextField("Name", text: $userSettings.name)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.leading, 5)
-                            .autocapitalization(.words)
-                            .disableAutocorrection(true)
-                    } else {
-                        Text("\(userSettings.name)")
-                    }
+                HStack{
+                    Text("Name")
                     
                     Spacer()
-
-                    Button(action: {
-                        self.nameInEditMode.toggle()
-                    }) {
-                        Text(nameInEditMode ? "Done" : "Edit")
-                            .foregroundColor(Color("AccentColor"))
-                    }
+                    
+                    Text("\(userSettings.name)")
+                        .foregroundColor(.gray)
+                        
                 }
-
             }
             
             Section(header: Text("Display")) {
