@@ -18,7 +18,6 @@ struct TutorialView: View {
     var body: some View {
         TabView(selection: $currentTab, content:  {
             // Introduction
-            // TO DO: make pretty
             VStack (alignment: .leading) {
                 Text("Welcome to the future of organisation")
                     .fontWeight(.bold)
@@ -28,8 +27,7 @@ struct TutorialView: View {
                     .font(.body)
                     .padding()
             }.tag(0)
-            
-            // SECOND VIEW = SCREENSHOT OF LISTVIEW WHICH IS ANNOTATED (e.g. the + button is circled, and is labeled "add new tasks here" e.g.) <- can only do once we finish list view completely
+
             VStack (alignment: .leading) {
                 Text("To change views:")
                     .fontWeight(.bold)
@@ -46,8 +44,6 @@ struct TutorialView: View {
             }
                 .tag(1)
             
-            // TO DO: make pretty, espeically the next button appearing out of nowhere
-            // TO DO: navigation link no work
             // Get user name and save it
             VStack (alignment: .center) {
                 Text("What is your name?")
