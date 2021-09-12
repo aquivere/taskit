@@ -31,7 +31,6 @@ struct ListView: View {
                     .background(Color("AccentColor"))
                 
                 Text("Today")
-                    .italic()
                     .fontWeight(.semibold)
                     .font(.body)
                     .foregroundColor(Color("Minimal"))
@@ -54,19 +53,18 @@ struct ListView: View {
                     }
                     .listStyle(PlainListStyle())
                     .frame(height: 300)
-                    .padding(.leading, 20)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
                 }
                 
                 Spacer()
-               
-                // RECURRING VIEWS - A TAB UNDER.
+
                 if indexNumber == 1 {
                     Divider()
                         .frame(height: 1)
                         .background(Color("AccentColor"))
                     
                     Text("This week")
-                        .italic()
                         .fontWeight(.semibold)
                         .font(.body)
                         .padding(.vertical, 2)
@@ -104,7 +102,8 @@ struct ListView: View {
                         .background(Color("AccentColor"))
                     
                     WeeklyRecurringListView()
-                        .padding(.leading, 20)
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
                     
                 } else if indexNumber == 2 {
                     Divider()
@@ -112,7 +111,6 @@ struct ListView: View {
                         .background(Color("AccentColor"))
                     
                     Text("This fortnight")
-                        .italic()
                         .fontWeight(.semibold)
                         .font(.body)
                         .padding(.vertical, 2)
@@ -154,6 +152,8 @@ struct ListView: View {
                         .background(Color("AccentColor"))
                     
                     FortnightlyRecurringListView()
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
                     
                 } else {
                     Divider()
@@ -161,7 +161,6 @@ struct ListView: View {
                         .background(Color("AccentColor"))
                     
                     Text("This month")
-                        .italic()
                         .fontWeight(.semibold)
                         .font(.body)
                         .padding(.vertical, 2)
@@ -199,7 +198,8 @@ struct ListView: View {
                         .background(Color("AccentColor"))
                     
                     MonthlyRecurringListView()
-                        .padding(.leading, 20)
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
                     
                 }
             }
@@ -212,7 +212,7 @@ struct ListView: View {
                 },
                 trailing: NavigationLink(destination: AddView()) {
                     Text("+")
-                        .font(.system(size: 25))
+                        .font(.system(size: 35))
                         .foregroundColor(Color("AccentColor"))
                 }
             )

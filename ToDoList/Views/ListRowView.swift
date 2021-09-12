@@ -23,7 +23,6 @@ struct ListRowView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     let SecondaryAccentColor = Color("Color")
     let regularListColor = Color("Minimal")
-    let recurringListColor = Color("RecurringListColor")
     @State var checkMark: Bool = false
     let background = Color("background")
     
@@ -68,7 +67,7 @@ struct ListRowView: View {
            } else {
                 // if recurring list
             Image(systemName: self.pressed ? "checkmark.square.fill"  : "square")
-                    .foregroundColor(regularListColor)
+                    .foregroundColor(Color("AccentColor"))
                     .padding(.leading, 10)
                     .opacity(self.pressed ? 0 : 1.0)
                     .onTapGesture {
