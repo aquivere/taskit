@@ -5,17 +5,27 @@ Taskit is an IOS application using where you can store regular tasks and to-do i
 This application was built using Swift and SwiftUI.
 
 ## ⚙️ General Use
-This application provides a quick intro when first using it, and prompts users to input their name. https://user-images.githubusercontent.com/79503993/132985856-96ca81c9-de40-4c27-9b31-be0a640dd118.mp4 <br />
+This application provides a quick intro when first using it, and prompts users to input their name.
+<br /> 
+
+https://user-images.githubusercontent.com/79503993/132985856-96ca81c9-de40-4c27-9b31-be0a640dd118.mp4 
+
+<br />
 There are then two lists shown - one for regular one-time tasks, and the other for regular repeated tasks (i.e. weekly, fortnightly or monthly). When regular tasks are ticked off, they fade away and disappear, whereas when recurring tasks are ticked off, they disappear for the time being until they are to be completed again.  <br /> 
 
 https://user-images.githubusercontent.com/79503993/132985992-070cc38e-63e6-48e2-a45a-a371c9c8e639.mp4
 
  <br />
-There is also the option to allow notifications for regular tasks  <br /> 
+There is also the option to allow notifications for regular tasks  
+<br /> 
+
 https://user-images.githubusercontent.com/79503993/132985882-afda0f56-a9c5-4b2a-aa82-3d1fbd56df4d.mp4
- <br />
+
+<br />
 The three time periods - weekly, fortnightly and monthly - each have lists which can be viewed by long pressing on the list title, and then switching between them.  <br /> 
+
 https://user-images.githubusercontent.com/79503993/132985893-a0eca176-3f01-4379-b5e0-c598543d22a8.mp4
+
  <br />
 Additional features include settings to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen.  <br /> [INSERT VIDEO CLIP] <br />
 
