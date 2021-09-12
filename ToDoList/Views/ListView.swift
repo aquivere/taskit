@@ -1,8 +1,8 @@
 //
 //  ListView.swift
-//  Taskit
+//  ToDoList
 //
-//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim on 8/7/21.
 //  Home page view
 
 import SwiftUI
@@ -14,8 +14,6 @@ struct ListView: View {
     @State private var pressed = false
     @State var indexNumber = 1
 
-   
-    let today = Date()
     let colorMinimal = "Minimal"
     let background = "background"
     
@@ -25,48 +23,55 @@ struct ListView: View {
             VStack(alignment: .leading ) {
                
                 TitleView()
-                    .padding(.leading, 20)
+                    .padding(.leading)
                 
-                // DAILY VIEW FOR REGULAR TASKS
+                // DAILY VIEW FOR NON RECURRING TASKS
                 Divider()
-                Text("Tasks")
+                    .frame(height: 1)
+                    .background(Color("AccentColor"))
+                
+                Text("Today")
                     .italic()
                     .fontWeight(.semibold)
                     .font(.body)
-                    .textCase(.lowercase)
+                    .foregroundColor(Color("Minimal"))
                     .padding(.vertical, 2)
                     .padding(.leading, 20)
-                    
+               
                 Divider()
+                    .frame(height: 1)
+                    .background(Color("AccentColor"))
+                
                 ScrollView {
                     List {
                         ForEach(listViewModel.items) { item in
                             ListRowView(item: item)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                 .listRowInsets(EdgeInsets())
-                                
                         }
                         .onDelete(perform: listViewModel.deleteItem)
                         .onMove(perform: listViewModel.moveItem)
                     }
                     .listStyle(PlainListStyle())
                     .frame(height: 300)
-                    
+                    .padding(.leading, 20)
                 }
+                
                 Spacer()
+               
                 // RECURRING VIEWS - A TAB UNDER.
                 if indexNumber == 1 {
                     Divider()
-                    Text("this week")
+                        .frame(height: 1)
+                        .background(Color("AccentColor"))
+                    
+                    Text("This week")
                         .italic()
                         .fontWeight(.semibold)
                         .font(.body)
-                        .textCase(.lowercase)
                         .padding(.vertical, 2)
                         .padding(.leading, 20)
-                        .opacity(self.pressed ? 0 : 1.0)
                         .contextMenu {
-                           
                             Button(action: {
                                 self.pressed.toggle()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -78,37 +83,38 @@ struct ListView: View {
                                 }
                                 
                             }, label: {
-                                Text("this fortnight")
-                                    .textCase(.lowercase)
-                            })
+                                Text("This fortnight")
+                            }
+                            )
                             Button(action: {
-                                
                                 self.pressed.toggle()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                     withAnimation(.linear) {
                                         indexNumber = 3
                                         self.pressed.toggle()
                                     }
-                                    
                                 }
                             }, label: {
-                                Text("this month")
-                                    .textCase(.lowercase)
+                                Text("This month")
                             })
                         }
+                    
                     Divider()
+                        .frame(height: 1)
+                        .background(Color("AccentColor"))
                     
-                        WeeklyRecurringListView()
-                            
-                    
+                    WeeklyRecurringListView()
+                        .padding(.leading, 20)
                     
                 } else if indexNumber == 2 {
                     Divider()
-                    Text("this fortnight")
+                        .frame(height: 1)
+                        .background(Color("AccentColor"))
+                    
+                    Text("This fortnight")
                         .italic()
                         .fontWeight(.semibold)
                         .font(.body)
-                        .textCase(.lowercase)
                         .padding(.vertical, 2)
                         .padding(.leading, 20)
                         .opacity(self.pressed ? 0 : 1.0)
@@ -124,9 +130,10 @@ struct ListView: View {
                                     
                                 }
                             }, label: {
-                                Text("this week")
-                                    .textCase(.lowercase)
-                            })
+                                Text("This week")
+                            }
+                            )
+                            
                             Button(action: {
                                 self.pressed.toggle()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -137,28 +144,30 @@ struct ListView: View {
                                     
                                 }
                             }, label: {
-                                Text("this month")
-                                    .textCase(.lowercase)
-                            })
+                                Text("This month")
+                            }
+                            )
                         }
+                    
                     Divider()
+                        .frame(height: 1)
+                        .background(Color("AccentColor"))
                     
-                        FortnightlyRecurringListView()
-                            
-                    
+                    FortnightlyRecurringListView()
                     
                 } else {
                     Divider()
-                    Text("this month")
+                        .frame(height: 1)
+                        .background(Color("AccentColor"))
+                    
+                    Text("This month")
                         .italic()
                         .fontWeight(.semibold)
                         .font(.body)
-                        .textCase(.lowercase)
                         .padding(.vertical, 2)
                         .padding(.leading, 20)
                         .opacity(self.pressed ? 0 : 1.0)
                         .contextMenu {
-                           
                             Button(action: {
                                 self.pressed.toggle()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -169,8 +178,7 @@ struct ListView: View {
                                     
                                 }
                             }, label: {
-                                Text("this week")
-                                    .textCase(.lowercase)
+                                Text("This week")
                             })
                             Button(action: {
                                 self.pressed.toggle()
@@ -182,31 +190,33 @@ struct ListView: View {
                                     
                                 }
                             }, label: {
-                                Text("this fortnight")
-                                    .textCase(.lowercase)
+                                Text("This fortnight")
                             })
                         }
-                    Divider()
                     
-                        MonthlyRecurringListView()
-                            
+                    Divider()
+                        .frame(height: 1)
+                        .background(Color("AccentColor"))
+                    
+                    MonthlyRecurringListView()
+                        .padding(.leading, 20)
                     
                 }
             }
-            .navigationBarTitle("Hello \(userSettings.name)!")
+            .navigationBarTitle(Text("Home"), displayMode: .inline)
             .navigationBarItems(
                 leading: NavigationLink(destination: SettingsView()) {
                     Text("Settings")
-                        .textCase(.lowercase)
-                        .foregroundColor(Color(colorMinimal))
+                        .foregroundColor(Color("AccentColor"))
+                    
                 },
                 trailing: NavigationLink(destination: AddView()) {
                     Text("+")
                         .font(.system(size: 25))
+                        .foregroundColor(Color("AccentColor"))
                 }
             )
         }
-        // .navigationTitle("Notifications")
         .onAppear(perform: listViewModel.reloadAuthorizationStatus)
         .onChange(of: listViewModel.authorizationStatus) {
             authorizationStatus in switch authorizationStatus {
@@ -231,60 +241,38 @@ struct TitleView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     
     let today = Date()
-    
     var body: some View {
-        
-        Text("You have \(listViewModel.items.count) tasks to complete!")
+        Text("Hello \(userSettings.name),")
             .font(.title)
             .bold()
+            .padding(.top, 20)
+            .foregroundColor(Color("Minimal"))
+        
+        if listViewModel.items.count == 1 {
+            Text("you have \(listViewModel.items.count) task \nto complete.")
+                .font(.title)
+                .bold()
+                .foregroundColor(Color("Minimal"))
+            
+        } else {
+            Text("you have \(listViewModel.items.count) tasks \nto complete.")
+                .font(.title)
+                .bold()
+                .foregroundColor(Color("Minimal"))
+        }
         
         Text(today, style: .date)
-            .padding(.vertical, 5)
+            .italic()
+            .padding(.top, 2)
     }
 }
-
-struct WeeklyView: View {
-    // TODO: align everything so it's centered
-    // also need to make the list background the same colour
-    // then repeat for all the other recurring
-    @ObservedObject var userSettings = UserModel()
-    @EnvironmentObject var listViewModel: ListViewModel
-    
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                            .fill(Color("Recurring"))
-                            .frame(width: 350, height: 250)
-            VStack {
-                
-                Text("Weekly Tasks").font(.headline)
-                
-                List {
-                    ForEach(listViewModel.recItems) { item in
-                        if item.recurrence == "Every Week" {
-                            ListRowView(item: item)
-                                .onTapGesture {
-                                    listViewModel.updateRecItem(recItem: item)
-                                }.background(Color("Recurring"))
-                        }
-                    }
-                    .onDelete(perform: listViewModel.deleteRecItem)
-                    .onMove(perform: listViewModel.moveRecItem)
-                
-                .listStyle(PlainListStyle())
-                }.frame(width: 300, height: 200, alignment: .center)
-            }
-        }.padding(10)
-    }
-}
-
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ListView()
-                .preferredColorScheme(.light)
                 .environmentObject(ListViewModel())
+                .modifier(DarkModeViewModifier())
         }
     }
 }
