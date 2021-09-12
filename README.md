@@ -24,6 +24,14 @@ https://user-images.githubusercontent.com/79503993/132986082-38398ad9-32bc-4b81-
 
 
 <br />
+If allowed, notifications will show if you have not completed the task by the due time. 
+<br /> 
+
+
+https://user-images.githubusercontent.com/79503993/132986392-172983c2-941a-454f-a278-2ab525c3a4f4.mp4
+
+
+<br />
 The three time periods - weekly, fortnightly and monthly - each have lists which can be viewed by long pressing on the list title, and then switching between them.  <br /> 
 
 https://user-images.githubusercontent.com/79503993/132985893-a0eca176-3f01-4379-b5e0-c598543d22a8.mp4
