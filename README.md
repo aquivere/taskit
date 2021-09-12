@@ -5,7 +5,7 @@ Taskit is an IOS application using where you can store regular tasks and to-do i
 This application was built using Swift and SwiftUI.
 
 ## ⚙️ General Use
-This application provides a quick intro when first using it, and prompts users to input their name.
+This application provides a quick intro when first using it, and prompts users to input their name. The main page of the app is then personalised with their name.
 <br /> 
 
 https://user-images.githubusercontent.com/79503993/132985856-96ca81c9-de40-4c27-9b31-be0a640dd118.mp4 
@@ -41,7 +41,7 @@ https://user-images.githubusercontent.com/86246033/132986470-1b02df18-8202-4212-
 
  <br />
  
-Additional features include settings to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen.  
+Additional features include settings to toggle between light and dark mode within the app, and the number of regular tasks being provided on the screen.  
 
 <br />
 
