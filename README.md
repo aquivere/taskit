@@ -1,4 +1,5 @@
-# Taskit
+# Taskit![imageedit_2_4315249640](https://user-images.githubusercontent.com/86246033/132982427-e4f77427-4189-41b8-bfd8-2145ad746780.png)
+
 Taskit is an IOS application using where you can store regular tasks and to-do items, as well as regularly repeating tasks, and be able to check them off when completed. Regular tasks will have the option to have notifications, and be automatically deleted when completed, while repeating tasks reset to become incomplete when the next time period has passed. 
 
 This application was built using Swift and SwiftUI.
