@@ -17,7 +17,6 @@ struct RecurringView: View {
     
     @State var options = [
         "Do not repeat",
-        "Every Day",
         "Every Week",
         "Every Fortnight",
         "Every Month",
@@ -30,29 +29,16 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Do not repeat".uppercased())
-                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)
                     .cornerRadius(0)
             })
-//            Button(action: {
-//                recurrenceTitle = "Every Day"
-//                presentationMode.wrappedValue.dismiss()
-//            }, label: {
-//                Text("Repeat Every Day".uppercased())
-//                    //.foregroundColor(.white)
-//                    .font(.headline)
-//                    .frame(height:40)
-//                    .frame(maxWidth: .infinity)
-//                    .cornerRadius(0)
-//            })
             Button(action: {
                 recurrenceTitle = "Every Week"
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Repeat Every Week".uppercased())
-                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)
@@ -63,7 +49,6 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Repeat Every Fortnight".uppercased())
-                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)
@@ -74,7 +59,6 @@ struct RecurringView: View {
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Repeat Every Month".uppercased())
-                    //.foregroundColor(.white)
                     .font(.headline)
                     .frame(height:40)
                     .frame(maxWidth: .infinity)

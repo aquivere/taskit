@@ -10,7 +10,7 @@ import Foundation
 
 
 struct AddView: View {
-    // @StateObject private var notificationManager = NotificationManager()
+
     @State var textFieldText: String = ""
     
     @State private var date = Date()
