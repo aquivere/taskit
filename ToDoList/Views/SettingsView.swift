@@ -17,8 +17,6 @@ struct SettingsView: View {
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     var body: some View {
-        // NEED TO FIGURE out how to put in the title "settings"
-            
         Form {
             Section(header: Text("Name")) {
                 HStack {
@@ -43,7 +41,14 @@ struct SettingsView: View {
                 }
 
             }
+            
+            Section(header: Text("Display")) {
+                Toggle("Dark Mode", isOn: $isDarkMode)
+            }
+            
         }
+        .navigationBarTitle(Text("Settings"), displayMode: .inline)
+        .modifier(DarkModeViewModifier())
             
     }
 }
