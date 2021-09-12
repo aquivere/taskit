@@ -7,7 +7,9 @@ This application was built using Swift and SwiftUI.
 ## ⚙️ General Use
 This application provides a quick intro when first using it, and prompts users to input their name. https://user-images.githubusercontent.com/79503993/132985856-96ca81c9-de40-4c27-9b31-be0a640dd118.mp4 <br />
 There are then two lists shown - one for regular one-time tasks, and the other for regular repeated tasks (i.e. weekly, fortnightly or monthly). When regular tasks are ticked off, they fade away and disappear, whereas when recurring tasks are ticked off, they disappear for the time being until they are to be completed again.  <br /> 
-https://user-images.githubusercontent.com/79503993/132985869-f765ce62-836c-42e7-8f2a-930174950aee.mp4
+
+https://user-images.githubusercontent.com/79503993/132985992-070cc38e-63e6-48e2-a45a-a371c9c8e639.mp4
+
  <br />
 There is also the option to allow notifications for regular tasks  <br /> 
 https://user-images.githubusercontent.com/79503993/132985882-afda0f56-a9c5-4b2a-aa82-3d1fbd56df4d.mp4
