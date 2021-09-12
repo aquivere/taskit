@@ -14,23 +14,36 @@ import SwiftUI
  View - UI of our app.
  View Model - class that manages the models or the data for the view. 
  */
+
+//Define observable
+class AppState: ObservableObject {
+    @Published var hasOnboarded: Bool {
+        didSet {
+            UserDefaults.standard.set(hasOnboarded, forKey: "hasOnboarded")
+        }
+    }
+
+    init(hasOnboarded: Bool) {
+        self.hasOnboarded = hasOnboarded
+    }
+}
+
 @main
 struct ToDoListApp: App {
     @StateObject var listViewModel: ListViewModel = ListViewModel()
     @ObservedObject var userSettings = UserModel()
-    @StateObject var viewRouter = ViewRouter()
-    
+    @ObservedObject var appState = AppState(hasOnboarded: false)    
     var body: some Scene {
         WindowGroup {
-            if userSettings.isSetUp == false {
-                NavigationView {
-                    TutorialView(viewRouter: ViewRouter())
-                }.environmentObject(listViewModel)
+            if appState.hasOnboarded == false && userSettings.isSetUp == false  {
+                TutorialView()
+                    .environmentObject(appState)
+                    .environmentObject(listViewModel)
             } else {
-                MotherView(viewRouter: ViewRouter())
+                ListView()
+                    .environmentObject(appState)
                     .environmentObject(listViewModel)
             }
-            // TO DO: SOMEHOW INTEGRATE THE NOTIFICATIONLISTVIEW INTO THE MOTHERVIEW SO THAT NOTIFICATIONS CAN RUN. 
         }
     }
 }

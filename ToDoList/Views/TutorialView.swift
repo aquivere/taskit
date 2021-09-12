@@ -9,7 +9,9 @@ import SwiftUI
 struct TutorialView: View {
     @State private var currentTab = 0
     @ObservedObject var userSettings = UserModel()
-    @StateObject var viewRouter: ViewRouter
+    
+    @EnvironmentObject var appState: AppState
+    
     let minimal = "Minimal"
     
     var body: some View {
@@ -33,7 +35,7 @@ struct TutorialView: View {
                     .font(.title)
                     .padding()
                 Group {
-                    Text("Long press on ") + Text("daily view ").fontWeight(.bold) + Text("to select weekly, fortnightly and monthly tasks")
+                    Text("Long press on ") + Text("this week ").fontWeight(.bold) + Text("to select fortnightly and monthly tasks")
                         
                 }
                     .font(.body)
@@ -64,7 +66,9 @@ struct TutorialView: View {
                     Button (action: {
                         userSettings.isSetUp = true
                         //change views after clicking button.
-                        viewRouter.currentPage = .page1
+                        appState.hasOnboarded = true
+                        
+                        
                     }, label: {
                         Text("Next")
                             .fontWeight(.semibold)
@@ -73,7 +77,7 @@ struct TutorialView: View {
                             .padding()
                     })
                 }
-            }
+            }.tag(2)
         })
             .tabViewStyle(PageTabViewStyle())
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
@@ -82,6 +86,6 @@ struct TutorialView: View {
 
 struct TutorialView_Previews: PreviewProvider {
     static var previews: some View {
-        TutorialView(viewRouter: ViewRouter())
+        TutorialView()
     }
 }

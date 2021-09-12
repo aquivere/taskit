@@ -67,7 +67,7 @@ struct ListRowView: View {
                     
            } else {
                 // if recurring list
-                Image(systemName: item.isCompleted ? "checkmark.square.fill"  : "square")
+            Image(systemName: self.pressed ? "checkmark.square.fill"  : "square")
                     .foregroundColor(regularListColor)
                     .padding(.leading, 10)
                     .opacity(self.pressed ? 0 : 1.0)
@@ -116,7 +116,7 @@ struct ListRowView_Previews: PreviewProvider {
     let item2: ItemModel
     
     static var item1 = ItemModel(title: "First Item!", isCompleted: false, dateCompleted: "04/03/2021", date: Date().addingTimeInterval(-5000), recurrence: "")
-    static var item2 = ItemModel(title: "Second Item.", isCompleted: true, dateCompleted: "03/08/2021", date: Date().addingTimeInterval(5000), recurrence: "")
+    static var item2 = ItemModel(title: "Second Item.", isCompleted: true, dateCompleted: "03/08/2021", date: Date().addingTimeInterval(5000), recurrence: "Every Week")
     static var previews: some View {
         Group {
             ListRowView(item: item1)

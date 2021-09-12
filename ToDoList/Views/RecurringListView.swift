@@ -10,7 +10,6 @@ import SwiftUI
 struct WeeklyRecurringListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @ObservedObject var userSettings = UserModel()
-    @StateObject var viewRouter: ViewRouter
     
    
     let today = Date()
@@ -29,7 +28,7 @@ struct WeeklyRecurringListView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .listRowInsets(EdgeInsets())
-                        .background(Color.white)
+                        
                 }
                 
             }
@@ -44,7 +43,7 @@ struct WeeklyRecurringListView: View {
 struct FortnightlyRecurringListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @ObservedObject var userSettings = UserModel()
-    @StateObject var viewRouter: ViewRouter
+    
     
     
     let today = Date()
@@ -62,7 +61,7 @@ struct FortnightlyRecurringListView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .listRowInsets(EdgeInsets())
-                        .background(Color.white)
+                        
                 }
                 
             }
@@ -78,7 +77,7 @@ struct FortnightlyRecurringListView: View {
 struct MonthlyRecurringListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @ObservedObject var userSettings = UserModel()
-    @StateObject var viewRouter: ViewRouter
+    
     
     let today = Date()
     // let aWeekLater = Calendar.current.date(byAdding: dateComponent.day = 7, to: today)
@@ -95,7 +94,7 @@ struct MonthlyRecurringListView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .listRowInsets(EdgeInsets())
-                        .background(Color.white)
+                        
                 }
                 
             }
