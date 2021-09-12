@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  ToDoList
 //
-//  Created by Brianna Kim on 23/8/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
 
 

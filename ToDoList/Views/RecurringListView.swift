@@ -2,7 +2,7 @@
 //  RecurringListView.swift
 //  ToDoList
 //
-//  Created by Vivian Wang on 19/8/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
 
 import SwiftUI
@@ -13,8 +13,6 @@ struct WeeklyRecurringListView: View {
     
    
     let today = Date()
-    // let aWeekLater = Calendar.current.date(byAdding: dateComponent.day = 7, to: today)
-    // ^ need to figure out how to do this properly
     let colorMinimal = "Minimal"
     var body: some View {
         
@@ -47,8 +45,6 @@ struct FortnightlyRecurringListView: View {
     
     
     let today = Date()
-    // let aWeekLater = Calendar.current.date(byAdding: dateComponent.day = 7, to: today)
-    // ^ need to figure out how to do this properly
     let colorMinimal = "Minimal"
     var body: some View {
         
@@ -80,8 +76,6 @@ struct MonthlyRecurringListView: View {
     
     
     let today = Date()
-    // let aWeekLater = Calendar.current.date(byAdding: dateComponent.day = 7, to: today)
-    // ^ need to figure out how to do this properly
     let colorMinimal = "Minimal"
     var body: some View {
         
@@ -107,6 +101,8 @@ struct MonthlyRecurringListView: View {
     
 }
 
+// function to check if the repeating task has a due date within the current time period
+// i.e. this week, this fortnight or this month
 func checkDate(item: ItemModel) -> Bool {
     let components = Calendar.current.dateComponents([.weekOfYear, .year, .month], from: item.date)
     guard let itemWeek = components.weekOfYear else {return false}

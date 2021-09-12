@@ -2,7 +2,7 @@
 //  ToDoListApp.swift
 //  ToDoList
 //
-//  Created by Borborick Zhu on 8/7/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
 
 import SwiftUI

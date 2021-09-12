@@ -2,7 +2,7 @@
 //  ItemModel.swift
 //  ToDoList
 //
-//  Created by Borborick Zhu on 9/7/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
 
 import Foundation

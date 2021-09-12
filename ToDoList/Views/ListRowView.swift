@@ -2,7 +2,7 @@
 //  ListRowView.swift
 //  ToDoList
 //
-//  Created by Borborick Zhu on 8/7/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
 
 import SwiftUI
@@ -33,7 +33,7 @@ struct ListRowView: View {
             if (item.recurrence == "Do not repeat") {
                 // if regular list
                 Image(systemName: self.pressed ? "checkmark.square.fill"  : "square")
-                    .foregroundColor(regularListColor)
+                    .foregroundColor(Color("AccentColor"))
                     .padding(.leading, 10)
                     .opacity(self.pressed ? 0 : 1.0)
                     .onTapGesture {

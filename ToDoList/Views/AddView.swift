@@ -2,8 +2,8 @@
 //  AddView.swift
 //  ToDoList
 //
-//  Created by Borborick Zhu on 8/7/21.
-//  Edited by Vivian Wang on 17/08/21
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
+//
 
 import SwiftUI
 import Foundation
@@ -54,12 +54,10 @@ struct AddView: View {
                                 Spacer()
                                 
                                 Text(recurrenceTitle.uppercased())
-                                //TODO: need to save recurrence string/ data and use it in this screen
                             }
                             
                         })
                         .padding()
-                        //.foregroundColor(.black)
                         .font(.headline)
 
                         .cornerRadius(10)
@@ -108,13 +106,13 @@ struct AddView: View {
         })
     }
     
+    // when the save button is pressed, the task is added into the list, and a notification is created
     func saveButtonPressed() {
         if textIsAppropriate() == true {
             listViewModel.addItem(title: textFieldText, dateCompleted: dateToString(date: date), date: date)
             
             presentationMode.wrappedValue.dismiss()
-            
-            // to create the notification
+  
             listViewModel.createLocalNotification(title: textFieldText, date: date, recurrence: "Do not repeat") { error in
             }
         }
@@ -129,21 +127,13 @@ struct AddView: View {
                 listViewModel.addRecItem(title: textFieldText, dateCompleted: dateToString(date: date), date: date, recurrence: recurrenceTitle)
                 presentationMode.wrappedValue.dismiss()
             }
-            
-            // create the notification
-            /*
-            let emojis = "‼️😱⏳"
-            let text = textFieldText + emojis
-            
-            listViewModel.createLocalNotification(title: text, date: date, recurrence: recurrenceTitle) { error in
-            }*/
         }
     }
     
     func textIsAppropriate() -> Bool {
-        if textFieldText.count < 3 {
+        if textFieldText.count == 0 {
             
-            alertTitle = "Your new to do item must be at least three characters long!!! 😅"
+            alertTitle = "You must enter a task!"
             
             showAlert.toggle()
             return false

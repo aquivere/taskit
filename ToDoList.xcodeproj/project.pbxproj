@@ -11,7 +11,6 @@
 		5E40F16126D715A0007C5FDC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E40F16026D715A0007C5FDC /* SettingsView.swift */; };
 		5E40F16326D715CD007C5FDC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E40F16226D715CD007C5FDC /* TutorialView.swift */; };
 		5ED786D426CE662700C2297E /* RecurringListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED786D326CE662700C2297E /* RecurringListView.swift */; };
-		5EE4F26B26CA784F0018EC9B /* NotificationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */; };
 		EB1B43872699455E008D6DAC /* NoItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1B43862699455E008D6DAC /* NoItemsView.swift */; };
 		EB609690269BF56400628F36 /* RecurringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB60968F269BF56400628F36 /* RecurringView.swift */; };
 		EBF99A3326970EBB0083CDE5 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF99A3226970EBB0083CDE5 /* ToDoListApp.swift */; };
@@ -29,7 +28,6 @@
 		5E40F16026D715A0007C5FDC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5E40F16226D715CD007C5FDC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		5ED786D326CE662700C2297E /* RecurringListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringListView.swift; sourceTree = "<group>"; };
-		5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListView.swift; sourceTree = "<group>"; };
 		EB1B43862699455E008D6DAC /* NoItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoItemsView.swift; sourceTree = "<group>"; };
 		EB60968F269BF56400628F36 /* RecurringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringView.swift; sourceTree = "<group>"; };
 		EBF99A2F26970EBB0083CDE5 /* Taskit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +99,6 @@
 				EBF99A46269712CF0083CDE5 /* AddView.swift */,
 				EB1B43862699455E008D6DAC /* NoItemsView.swift */,
 				EB60968F269BF56400628F36 /* RecurringView.swift */,
-				5EE4F26A26CA784F0018EC9B /* NotificationListView.swift */,
 				5ED786D326CE662700C2297E /* RecurringListView.swift */,
 				5E40F16026D715A0007C5FDC /* SettingsView.swift */,
 				5E40F16226D715CD007C5FDC /* TutorialView.swift */,
@@ -202,7 +199,6 @@
 				EB609690269BF56400628F36 /* RecurringView.swift in Sources */,
 				EBF99A4E26980E830083CDE5 /* ListViewModel.swift in Sources */,
 				EBF99A3326970EBB0083CDE5 /* ToDoListApp.swift in Sources */,
-				5EE4F26B26CA784F0018EC9B /* NotificationListView.swift in Sources */,
 				EBF99A4326970F360083CDE5 /* ListView.swift in Sources */,
 				EB1B43872699455E008D6DAC /* NoItemsView.swift in Sources */,
 				5E40F16326D715CD007C5FDC /* TutorialView.swift in Sources */,
@@ -337,7 +333,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
-				DEVELOPMENT_TEAM = 9ZFR3T36CG;
+				DEVELOPMENT_TEAM = GH39KH9P8K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -345,7 +341,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bobovivbri.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = bvb.ToDoList;
 				PRODUCT_NAME = Taskit;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -359,7 +355,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
-				DEVELOPMENT_TEAM = 9ZFR3T36CG;
+				DEVELOPMENT_TEAM = GH39KH9P8K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -367,7 +363,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = bobovivbri.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = bvb.ToDoList;
 				PRODUCT_NAME = Taskit;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

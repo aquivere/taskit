@@ -1,8 +1,8 @@
 //
 //  ListView.swift
-//  ToDoList
+//  Taskit
 //
-//  Created by Borborick Zhu on 8/7/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //  Home page view
 
 import SwiftUI
@@ -199,12 +199,10 @@ struct ListView: View {
                     Text("Settings")
                         .textCase(.lowercase)
                         .foregroundColor(Color(colorMinimal))
-                        
                 },
                 trailing: NavigationLink(destination: AddView()) {
                     Text("+")
-                        .textCase(.lowercase)
-                        .foregroundColor(Color(colorMinimal))
+                        .font(.system(size: 25))
                 }
             )
         }

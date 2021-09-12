@@ -2,7 +2,7 @@
 //  NoItemsView.swift
 //  ToDoList
 //
-//  Created by Borborick Zhu on 10/7/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
 
 import SwiftUI

@@ -2,7 +2,7 @@
 //  RecurringView.swift
 //  ToDoList
 //
-//  Created by Borborick Zhu on 12/7/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
 
 import SwiftUI
@@ -96,9 +96,4 @@ class recurrenceData: ObservableObject {
     }
 }
     
-// TO DO - COMPLETELY CHANGE THE VIEW INTO A STACK OF BUTTONS THAT UPLOAD PASS INFORMATION THAT ULTIMATELY GETS SAVED IN THE MODEL.
-
-// WATCH VIDEO ON HOW TO CREATE TIMER APP.
-
-
 

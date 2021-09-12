@@ -2,8 +2,9 @@
 //  TutorialView.swift
 //  ToDoList
 //
-//  Created by Brianna Kim on 22/8/21.
+//  Created by Borborick Zhu, Vivian Wang and Brianna Kim
 //
+
 import SwiftUI
 
 struct TutorialView: View {
