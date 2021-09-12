@@ -32,18 +32,15 @@ https://user-images.githubusercontent.com/79503993/132986392-172983c2-941a-454f-
 
 
 <br />
-The three time periods - weekly, fortnightly and monthly - each have lists which can be viewed by long pressing on the list title, and then switching between them.  <br /> 
-
+The three time periods - weekly, fortnightly and monthly - each have lists which can be viewed by long pressing on the list title, and then switching between them.  
+<br /> 
 
 https://user-images.githubusercontent.com/86246033/132986443-f7b4cbe4-9f72-4412-925e-2591b1186cad.mp4
 
-
-
 https://user-images.githubusercontent.com/86246033/132986470-1b02df18-8202-4212-b939-3f5c5484e398.mp4
 
-
-
  <br />
+ 
 Additional features include settings to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen.  <br /> [INSERT VIDEO CLIP] <br />
 
 ## 🚀 Launch
