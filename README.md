@@ -12,8 +12,8 @@ The three time periods - weekly, fortnightly and monthly - each have lists which
 Additional features include settings to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen.  <br /> [INSERT VIDEO CLIP] <br />
 
 ## 🚀 Launch
-This application is not currently published on the Apple App Store. To run it on an iPhone, please follow these instructions:
-1. Git clone this repo and open it in Xcode.
+This application is not currently published on the Apple App Store. To run it on a phone, a Macbook with Xcode, and an iPhone are required. Please follow these instructions:
+1. Git clone this repo and open it in Xcode. In ToDoList's "Signing & Capabilities", you may need to change your team to your own Apple account.
 2. Connect iPhone to laptop through USB.
 3. In the Product tab, choose Destination and set it to your iPhone. 
 4. Run the code to launch the app on your iPhone.
