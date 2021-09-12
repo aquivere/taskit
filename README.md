@@ -33,7 +33,9 @@ Additional features include settings to toggle between light and dark mode withi
 
 ## 🚀 Launch
 This application is not currently published on the Apple App Store. <br/> 
-To run it, please git clone this repo and open it in Xcode. A simulator is available to run the program on, as if it were to be run on a phone.
+To run it, please follow these instructions:
+1. Git clone this repo and open it in Xcode. 
+2. Run the program through the Xcode simulator, which will simulate how the app performs on a phone.
 
 To run it on a phone, a Macbook with Xcode, and an iPhone are required. There is a chance of issues occurring during the process, due to the bundle identifier and the signing & capabilities. However, if you wish to proceed, please follow these instructions:
 1. Git clone this repo and open it in Xcode. In ToDoList's "Signing & Capabilities", you may need to change your team to your own Apple account.
