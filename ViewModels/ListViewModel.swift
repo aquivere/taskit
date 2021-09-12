@@ -109,7 +109,6 @@ class ListViewModel: ObservableObject {
         
     }
     
-    
     // function to reset completion for recurring items
     
     func addRecItem(title:String, dateCompleted: String, date: Date, recurrence: String) {
