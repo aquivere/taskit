@@ -40,4 +40,4 @@ To run it on a phone, a Macbook with Xcode, and an iPhone are required. There is
 3. In the Product tab, choose Destination and set it to your iPhone. 
 4. Run the code to launch the app on your iPhone.
 5. In your iPhone settings, head to General > Device Management > Apple Development and click Trust to allow the app to be run on your phone.
-6. The app is now available to be used on your phone! Please note that this build will only last for 7 days on your phone.
+6. The app should now be available to be used on your phone! Please note that this build will only last for 7 days on your phone.
