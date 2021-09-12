@@ -11,22 +11,37 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var userSettings = UserModel()
+    
+    @State var nameInEditMode = false
+    
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     var body: some View {
         // NEED TO FIGURE out how to put in the title "settings"
             
         Form {
-            Section(header: Text("Profile")) {
-                // TO DO: figure out to open a ext window to edit name
-                Text("Name: ")
-                
-                // FIGURE OUT WHY TEXT ISNT WORKING
-                // TextField("New name", text: $userSettings.name)
-            }
-            
-            Section(header: Text("Display")) {
-                Toggle("Dark Mode", isOn: $isDarkMode)
+            Section(header: Text("Name")) {
+                HStack {
+                    if nameInEditMode {
+                        TextField("Name", text: $userSettings.name)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.leading, 5)
+                            .autocapitalization(.words)
+                            .disableAutocorrection(true)
+                    } else {
+                        Text("\(userSettings.name)")
+                    }
+                    
+                    Spacer()
+
+                    Button(action: {
+                        self.nameInEditMode.toggle()
+                    }) {
+                        Text(nameInEditMode ? "Done" : "Edit")
+                            .foregroundColor(Color("AccentColor"))
+                    }
+                }
+
             }
         }
             
