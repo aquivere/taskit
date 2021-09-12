@@ -4,11 +4,6 @@ Taskit is an IOS application using where you can store regular tasks and to-do i
 
 This application was built using Swift and SwiftUI.
 
-In this file:
-## Table of Contents
-1. [General Use](## ⚙️ General Use)
-2. [Launch](## 🚀 Launch)
-
 ## ⚙️ General Use
 This application provides a quick intro when first using it, and prompts users to input their name.
 <br /> 
