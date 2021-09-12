@@ -41,7 +41,13 @@ https://user-images.githubusercontent.com/86246033/132986470-1b02df18-8202-4212-
 
  <br />
  
-Additional features include settings to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen.  <br /> [INSERT VIDEO CLIP] <br />
+Additional features include settings to toggle between light and dark mode within the app, having the app personalised with your name, and the number of regular tasks being provided on the screen.  
+
+<br />
+<div align="center">
+https://user-images.githubusercontent.com/86246033/132986726-ae34a2cd-597a-4bb6-96c2-f7ed470b4aa2.mp4
+</div>
+<br />
 
 ## 🚀 Launch
 This application is not currently published on the Apple App Store. <br/> 
