@@ -16,7 +16,7 @@ There are then two lists shown - one for regular one-time tasks, and the other f
 https://user-images.githubusercontent.com/79503993/132985992-070cc38e-63e6-48e2-a45a-a371c9c8e639.mp4
 
  <br />
-There is also the option to allow notifications for regular tasks  
+There is also the option to allow notifications for regular tasks. 
 <br /> 
 
 
